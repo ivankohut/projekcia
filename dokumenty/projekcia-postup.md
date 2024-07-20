@@ -8,7 +8,7 @@
 - spustiť oznamy (spustenie prezentácie - F5)
 - spustiť OBS a overiť či ide obraz do streamu
 - spustiť Deskreen a spárovať s mobilom
-- odniesť mobil na kancel, skontrolovať zapojenie nabíjačky
+- odniesť stopky a mobil na kancel, skontrolovať zapojenie nabíjačky
 - dohodnúť poradie a opakovanie sloh s chválospevákmi
 - príprava materiálov na premietanie
   - piesne, bibl. texty (OpenSong)
@@ -23,3 +23,5 @@
 - vypnúť projektor
 - vypnúť počítač
 - mobil na kancli - vypnúť a odložiť do zásuvky
+- stopky na kancli - vynulovať a odložiť do zásuvky
+- ďiaľkový ovládač prezentácie (ak bol použitý) - vložiť doň prijímač (USB) a odložiť do zásuvky
