@@ -1,0 +1,13 @@
+/.idea
+/archiv
+/data
+/dokumenty/archiv
+/fonty
+/git
+/OpenSong-2.1.2
+/OpenSong-InePiesne
+/OpenSong-Sets
+/opensong/open-song-cleaner
+*.zip
+*.7z
+*.kate-swp
