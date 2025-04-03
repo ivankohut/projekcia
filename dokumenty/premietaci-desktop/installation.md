@@ -117,6 +117,10 @@
         - Add Filter to created Source - Dedicated NDI Output
     - start automatically - System Settings/Startup and Shutdown/Autostart/Add Program... - choose OBS Studio
 
+- Video Download Helper extension for Firefox
+  - install the extension
+  - install the companion application - https://www.downloadhelper.net/install-coapp-v2
+
 ## Already installed:
 
 - Libreoffice 24.8.1.2
