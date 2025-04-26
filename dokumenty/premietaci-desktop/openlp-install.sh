@@ -2,7 +2,7 @@
 # openSUSE Leap 15.6 specific installation of OpenLP utilizing Python virtual environment since distro package is not available and pure source code version does not work because of python packages conflicts
 # Run the script from within a folder you want OpenLP to be installed into
 
-OPENLP_VERSION=3.1.3
+OPENLP_VERSION=3.1.7
 
 # Install Python 3.11 environment
 zypper -n install python311-devel gcc-c++ libicu-devel dbus-1-devel glib2-devel
@@ -13,7 +13,7 @@ python -m pip install alembic beautifulsoup4 chardet dbus-python distro flask fl
 
 # Install OpenLP
 OPENLP_PACKAGE="OpenLP-$OPENLP_VERSION.tar.gz"
-wget https://get.openlp.org/3.1.3/$OPENLP_PACKAGE
+wget https://get.openlp.org/$OPENLP_VERSION/$OPENLP_PACKAGE
 tar -xvzf $OPENLP_PACKAGE
 rm -f $OPENLP_PACKAGE
 

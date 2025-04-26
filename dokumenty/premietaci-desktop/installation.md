@@ -57,10 +57,9 @@
   ```
 
 - OpenLP - na video
-    - OpenLP 2.4.6 uz v openSUSE (15.4+) nefunguje, chyba mu balik python3-qtwebkit ("ImportError: cannot import name 'QtWebKit'"), ktory uz nie je
-      podporovany v openSUSE 15.4 (je neudrziavany a nahradeny balikom python3-qtwebengine, na ktory vsak nie je OpenLP 2.4.6 prisposobeny
-    - OpenLP 3.x (v. 3.0.0 released in December 2022) is not packages for openSUSE Leap 15.6 yet, however, source package can be used - run [openlp-install.sh](openlp-install.sh) script in `/opt/openlp` folder 
-        - register into KDE menu (path: `/opt/openlp/run.sh`)
+    - OpenLP 3.x (v. 3.0.0 released in December 2022) is not packaged for openSUSE Leap 15.6 yet; however, the source package can be used
+        - run [openlp-install.sh](openlp-install.sh) script in `/opt/openlp` folder 
+        - register into KDE menu (path: `/opt/openlp/run.sh`, Advanced/Working directory must be set as well)
 
 - XnViewMP
     - register into KDE menu
