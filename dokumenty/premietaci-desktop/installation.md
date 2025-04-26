@@ -66,6 +66,8 @@
     - configure full screen
 - XnView
     - configure full screen
+        - vypnúť "Zobrazenie informácií"
+        - nastaviť "Automatická veľkosť obrázku" na "Prispôsobiť všetky obrázky veľkosti okna"
 - fonts
     - basic MS fonts `zypper -n install fetchmsttfonts`
     - all TTF files from `Windows7DefaultFonts.zip` package
@@ -119,6 +121,11 @@
 - Video Download Helper extension for Firefox
   - install the extension
   - install the companion application - https://www.downloadhelper.net/install-coapp-v2
+
+- Okular
+    - Nastavenia/Nastaviť Okular/Prezentácia
+       - vypnúť "Zobrazovať ukazovateľ priebehu"
+       - nastaviť "Preferovaná obrazovka" na projektor
 
 ## Already installed:
 
