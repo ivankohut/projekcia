@@ -1,125 +1,81 @@
-# Installation instructions
+# Instalačný postup prostredia pre projekciu
 
-## BIOS
+## Počítač
+
+Je potrebné rýchle internetové priprojenie.
+
+### Premietací počítač na Palisádach
+
+Nastavenia v BIOSe:
 
 - GPU memory - Auto (2GB) -> 512MB
 - after POST waiting time - 3s -> 1s
 
-## OS
+### Iný počítač, skutočný alebo virtuálny (VirtualBox)
 
-- openSUSE Leap 15.6
-    - Keyboard layout - EN
-    - region - Slovakia
-    - package group - _KDE Desktop_
+- disk veľkosti aspoň 20 GB
 
-## Configuration
+## Operačný systém
 
-- yast - boot loader (GRUB) waiting time
-- /etc/fstab
-    - options for filesystems (ext4 - discard, nodelassoc, ...)
-    - tempfs for temp. directories
-- /etc/zypp/zypp.conf - `download.use_deltarpm = false`
-- KDE System Settings
-    - /Regional Settings/Formats/Region - Slovensko
-    - /Sprava napajania/Setrenie energie/Setrenie energie obrazovky - OFF
-    - /Spravanie pracovnej plochy/Zamykanie obrazovky
-        - Zamknut obrazovku - OFF
-        - Po prebudeni zo spanku - OFF
-    - /Input Devices/Keyboard
-        - /Hardware - Numlock on Plasma Startup - Turn on
-        - /Layouts
-            - Show flag
-            - Add layout - Slovak
+- Linux, konkrétne openSUSE Leap 15.6, [stiahnuť ISO obraz](https://download.opensuse.org/distribution/leap/15.6/iso/openSUSE-Leap-15.6-DVD-x86_64-Media.iso)
+- napáliť obraz na DVD, resp. nahrať na USB, resp. vložiť do virtuálnej CD mechaniky vo VirtualBox-e
+- spustiť inštaláciu openSUSE, použiť nasledovné voľby pre inštaláciu vo VirtualBox-e
+  (na fyzickom počítači treba venovať patričnú pozornosť správnemu nastaveniu Disk Partitioning (rozdelenie disku), teda kam sa openSUSE nainštaluje) :
+  - Language (Jazyk) - _Slovak - Slovenčina_, Rozloženie klávesnice - _Anglická (US)_, potom _Dopredu_
+  - Online repozitáre - _Áno_
+  - Zoznam On-line repozitárov - _Dopredu_
+  - Systémová rola - _Personal computer with KDE Plasma_, potom _Dopredu_
+  - Rozdelenie disku - _Dopredu_
+  - Hodiny a časové pásmo - _Dopredu_
+  - Lokálni používatelia - 
+    - Celé meno používateľa: `Projekcia`
+    - Používateľské meno: `projekcia`
+    - Heslo a Potvrďte heslo: je to na vás, napr. `projekcia`
+    - potom _Dopredu_
+  - Nastavenie inštalácie - _Inštalovať_
+  - Potvrdiť inštaláciu - _Inštalovať_
+- voliteľné pre fyzický počítač: nakonfigurovať partície v `/etc/fstab`
+  - _options_ pre systémy súborov (ext4 - `discard`, `nodelassoc`, ...)
+  - _tempfs_ for temp. directories
+- pre virtuálny počítač vo VirtualBox-e treba nainštalovať _Guest Additions_
+  - vo VirtualBox menu bežiaceho virtuálneho počítača spustiť: _Devices_ / _Insert Guest Additions CD Image..._
+  - v termináli (program _Konsole_) spustiť (bude vyžadovať zadanie hesla) 
+    ```shell
+    sudo zypper install -y kernel-devel \
+      && sudo mkdir -p /media/vbox-additions \
+      && sudo mount /dev/sr0 /media/vbox-additions \
+      && sudo /media/vbox-additions/VBoxLinuxAdditions.run --accept \
+      && sudo umount /media/vbox-additions
+    ```
+  - vo VirtualBox menu bežiaceho virtuálneho počítača spustiť: _Devices_ / _Shared Clipboard / Bidirectional_
 
-## Software
+## Programy a pracovná plocha
 
-- general
+Spustiť nainštalovaný počítač (automatické prihlásenie ako používateľ _Projekcia_),
+otvoriť terminál (teda spustiť program _Konsole_) a spustiť v ňom tieto príkazy (bude vyžadovať zadanie hesla):
 
-  ```shell
-  zypper -n install krusader wine mc htop krename p7zip-full zip arj rar unar keepassxc audacity arandr dcraw darktable exiftool smplayer
-  ```
+```shell
+sudo zypper install -y git \
+  && git clone https://github.com/ivankohut/projekcia.git \
+  && cd projekcia/dokumenty/premietaci-desktop \
+  && ./install-programs.sh
+```
 
-- _VLC_ (to have additional multimedia codecs), _ffmpeg_ and _gstreamer_ from _packman_ repository:
+Následne je potrebné sa odhlásiť a zase prihlásiť.
 
-  ```shell
-  zypper addrepo -cfp 90 http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Leap_15.6 packman
-  zypper --gpg-auto-import-keys refresh
-  zypper dist-upgrade --from packman --allow-downgrade --allow-vendor-change
-  zypper -n install --from packman ffmpeg gstreamer-plugins-bad gstreamer-plugins-libav gstreamer-plugins-ugly vlc vlc-codecs
-  ```
+### OBS
 
-- DVD playback
+OBS aj s podporou NDI sa síce nainštaluje v predošlom kroku, ale jeho konfiguráciu treba spraviť manuálne (konfigurácia je uložená v JSON databáze, ktorú nie je
+možné editovať priamo cez nejaký skript):
 
-  ```shell
-  zypper addrepo -f http://opensuse-guide.org/repo/openSUSE_Leap_15.6/ dvd
-  zypper --gpg-auto-import-keys refresh
-  zypper -n install libdvdcss2
-  ```
+- add Source of type _Display Capture (XSHM)_, select the display you want to send to NDI (for streaming purposes)
+- add Filter (right-click on the source, click Filter, then click +) of type _Dedicated NDI (R) output_, set _NDI (R) Name_ to `Projekcia`
 
-- OpenLP - na video
-    - OpenLP 3.x (v. 3.0.0 released in December 2022) is not packaged for openSUSE Leap 15.6 yet; however, the source package can be used
-        - run [openlp-install.sh](openlp-install.sh) script in `/opt/openlp` folder 
-        - register into KDE menu (path: `/opt/openlp/run.sh`, Advanced/Working directory must be set as well)
+### Rozšírenia pre Firefox
 
-- XnViewMP
-    - register into KDE menu
-    - configure full screen
-- XnView
-    - configure full screen
-        - vypnúť "Zobrazenie informácií"
-        - nastaviť "Automatická veľkosť obrázku" na "Prispôsobiť všetky obrázky veľkosti okna"
-- fonts
-    - basic MS fonts `zypper -n install fetchmsttfonts`
-    - all TTF files from `Windows7DefaultFonts.zip` package
-    - Century Gothic `century-gothic-cufonfonts.zip`
-- OpenSong
-    - unpack `opensong.7z` package to `~/Programs`
-    - create PNG icon from ICO (multipage - use the page with the higher resolution)
-    - register into KDE menu using PNG icon
-- git
-    - git: `zypper -n install git`
-    - IntelliJ IDEA, download and unpack to ~/Programs, to be used as git GUI
-    - register IDEA into KDE menu from within IDEA itself
-    - clone all OpenSong repos (i.e. replace most of the existing songs with GitHub clones)
-- OBS Studio (openSUSE specific instructions: https://cubiclenate.com/2020/08/11/obs-ndi-plugin-on-opensuse/) from _packman_ repository
-    - install
+Vo Firefoxe kliknúť na puzzle ikonku vpravo hore, potom _Spravovať rozšírenia_:
 
-      ```shell
-      zypper -n install alien rpm-build obs-studio libsrt1_5
-      # NDI plugin - only DEBs available - convert them to RPMs
-      curl -SLo libndi4_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/libndi4_4.5.1-1_amd64.deb
-      alien -r libndi4_amd64.deb
-      zypper in ./libndi*.rpm
-      rm libndi4*.deb libndi4*.rpm
-      curl -SLo obs-ndi_amd64.deb https://github.com/Palakis/obs-ndi/releases/download/4.9.1/obs-ndi_4.9.1-1_amd64.deb
-      alien -r obs-ndi_amd64.deb
-      zypper in obs-ndi*.rpm
-      ln -s /usr/lib/obs-plugins/obs-ndi.so /usr/lib64/obs-plugins/obs-ndi.so
-      rm obs-ndi*.deb obs-ndi*.rpm
-      # Disable firewall so that NDI communication works (FW not needed in local network)
-      systemctl stop firewalld
-      systemctl disable firewalld
-      ```
-
-    - configure
-        - Add Source - Capturing screen - Zachytávanie monitora (XSHM)
-        - Add Filter to created Source - Dedicated NDI Output
-    - start automatically - System Settings/Startup and Shutdown/Autostart/Add Program... - choose OBS Studio
-
-- Video Download Helper extension for Firefox
-  - install the extension
-  - install the companion application - https://www.downloadhelper.net/install-coapp-v2
-
-- Okular
-    - Nastavenia/Nastaviť Okular/Prezentácia
-       - vypnúť "Zobrazovať ukazovateľ priebehu"
-       - nastaviť "Preferovaná obrazovka" na projektor
-
-## Already installed:
-
-- Libreoffice 24.8.1.2
-
-## Known problems
-
-- XnViewClassic - neviem otvorit obrazky v XnView priamo z file managera (Krusader), suvisi to s tym, ze to ide cez Wine
-- XnViewMP currently displays everything to the first monitor - wait for bugfix
+- uBlock Origin - blokovač reklám
+- Video DownloadHelper - sťahovanie videí napr. z YouTube. Jeho _co-app_ ("companion application") je už nainštalovaná,  
+  ale samotné rozšírenie treba nainštalovať ručne . Odporúčam zmeniť adresár, do ktorého ukladá stiahnuté videá - 
+  kliknúť na puzzle ikonku vpravo hore, potom _Video DownloadHelper_, potom ozubené koliesko vľavo dole, potom _More settings_, potom _Download directory_ a _Change_ a vyberte štandardný priečinok pre stiahnuté súbory.
