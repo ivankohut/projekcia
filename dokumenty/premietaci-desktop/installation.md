@@ -81,18 +81,6 @@
     - IntelliJ IDEA, download and unpack to ~/Programs, to be used as git GUI
     - register IDEA into KDE menu from within IDEA itself
     - clone all OpenSong repos (i.e. replace most of the existing songs with GitHub clones)
-- LibreOffice 3.x (do not install desktop integration because it overrides existing file associations of libreoffice document types) - [
-  `install-libreoffice3.sh`](install-libreoffice3.sh)
-    - register into KDE menu:
-        - icon: /opt/libreoffice3.6/program/flat_logo.png
-        - command: /opt/libreoffice3.6/program/soffice
-- OpenOffice 4.x (ikonky do menu nejdu nainstalovat - konflikt s aktualnym LibreOffice 7.x - a tiez by to mohlo zmenit file associations) - [
-  `install-openoffice4.sh`](install-openoffice4.sh)
-    - register into KDE menu:
-        - icon: /opt/openoffice4/program/logo.png
-        - command: /opt/openoffice4/program/soffice
-- OpenOffice 3.x - unavailable - it cannot be installed via rpm because is obsoleted by OpenOffice 4.x
-
 - OBS Studio (openSUSE specific instructions: https://cubiclenate.com/2020/08/11/obs-ndi-plugin-on-opensuse/) from _packman_ repository
     - install
 
