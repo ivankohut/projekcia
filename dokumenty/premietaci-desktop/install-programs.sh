@@ -281,8 +281,11 @@ function configure-kde-plasma {
   qdbus6 org.kde.KWin /KWin reconfigure
   remove-icon-from-panel org.kde.plasma.pager
 
-  # Remove icons from task manager
-  sed-appletsrc 'org\.kde\.plasma\.icontasks' '\[Containments\]\[2\]\[Applets\]\[5\]\[Configuration\]\[General\]\nlaunchers=\ngroupingStrategy=0\nonlyGroupWhenFull=false'
+  # Task manager
+  # - remove icons
+  # - do not allow grouping windows
+  # - do not hide other windows while hovering over thumbnails
+  sed-appletsrc 'org\.kde\.plasma\.icontasks' '\[Containments\]\[2\]\[Applets\]\[5\]\[Configuration\]\[General\]\nlaunchers=\ngroupingStrategy=0\nonlyGroupWhenFull=false\nhighlightWindows=false'
 
   # Display seconds in digital clock
   sed-appletsrc 'org\.kde\.plasma\.digitalclock' '\[Containments\]\[2\]\[Applets\]\[19\]\[Configuration\]\[Appearance\]\nshowSeconds=true'
