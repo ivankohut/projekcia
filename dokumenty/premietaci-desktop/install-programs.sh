@@ -109,7 +109,7 @@ function install-obs-with-ndi {
   rm libndi-get.sh
 
   # DistroAV - OBS plugin providing NDI
-  DISTROAV_VERSION=6.0.0
+  DISTROAV_VERSION=6.1.1
   DISTROAV_DEB=distroav-${DISTROAV_VERSION}-x86_64-linux-gnu.deb
   wget https://github.com/DistroAV/DistroAV/releases/download/${DISTROAV_VERSION}/${DISTROAV_DEB}
   alien -r ${DISTROAV_DEB}
