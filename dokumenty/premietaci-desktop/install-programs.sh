@@ -115,8 +115,8 @@ function install-obs-with-ndi {
   alien -r ${DISTROAV_DEB}
   DISTROAV_RPM=distroav-${DISTROAV_VERSION}-2.x86_64.rpm
   # Using RPM directly in order to break missing dependency in a scriptable way (zypper does not allow that)
-  sudo rpm -i --nodeps ${DISTROAV_RPM}
-  sudo ln -s /usr/lib/x86_64-linux-gnu/obs-plugins/distroav.so /usr/lib64/obs-plugins/distroav.so
+  sudo rpm -i --nodeps --replacefiles --replacepkgs ${DISTROAV_RPM}
+  sudo ln -f -s /usr/lib/x86_64-linux-gnu/obs-plugins/distroav.so /usr/lib64/obs-plugins/distroav.so
   rm ${DISTROAV_RPM} ${DISTROAV_DEB}
 
   # Firewall setup
