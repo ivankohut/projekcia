@@ -167,9 +167,9 @@ function install-opensong {
   7z x ${PACKAGE_FILE}
   mv OpenSong-portable/* -t ${DESTINATION_DIR}
   DOCUMENTS_DIR=$(xdg-user-dir DOCUMENTS)
-  ln -s "${DESTINATION_DIR}/OpenSong Data/Sets" "$DOCUMENTS_DIR/Sets"
+  ln -snf "${DESTINATION_DIR}/OpenSong Data/Sets" "$DOCUMENTS_DIR/Sets"
   SONGS_DIR="${DESTINATION_DIR}/OpenSong Data/Songs"
-  ln -s "${SONGS_DIR}" "$DOCUMENTS_DIR/Songs"
+  ln -snf "${SONGS_DIR}" "$DOCUMENTS_DIR/Songs"
   clone-git-repo "${SONGS_DIR}" 400 400
   clone-git-repo "${SONGS_DIR}" bratske-piesne Bratske\ piesne
   clone-git-repo "${SONGS_DIR}" chvalte-pana-jezisa Chvalte\ Pana\ Jezisa
