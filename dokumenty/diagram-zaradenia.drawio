@@ -1,0 +1,236 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="DmafVy9qoLFK4R-cqLF2">
+    <mxGraphModel dx="1426" dy="960" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-12" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-11" target="Qid6VN-JK0h27-6GNhbc-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="157.67" y="290" as="sourcePoint" />
+            <mxPoint x="357.66999999999996" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-13" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-12" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-1" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.lcd_monitor;" parent="1" vertex="1">
+          <mxGeometry x="79.99999999999997" y="60" width="58" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-2" value="" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.desktop_pc;network2IconXOffset=-0.0034;network2IconYOffset=0.00035;network2IconW=0.453;network2IconH=0.9995;" parent="1" vertex="1">
+          <mxGeometry x="97.66999999999999" y="220" width="22.650000000000002" height="49.975" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-3" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-2" target="Qid6VN-JK0h27-6GNhbc-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="137.67" y="230" as="sourcePoint" />
+            <mxPoint x="307.66999999999996" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-4" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-3" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-5" value="" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.video_projector;network2IconYOffset=0.013;network2IconW=1;network2IconH=0.294;" parent="1" vertex="1">
+          <mxGeometry x="212.11999999999998" y="67.83000000000001" width="110" height="32.34" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-8" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-2" target="Qid6VN-JK0h27-6GNhbc-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="157.67" y="290" as="sourcePoint" />
+            <mxPoint x="317.66999999999996" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-9" value="HDMI" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-8" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-11" value="" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/media_converters/Media_Converter_Modular.svg;" parent="1" vertex="1">
+          <mxGeometry x="247.67" y="229.99" width="38.9" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-14" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Súčasný stav&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="32" width="168" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-15" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;VGA&amp;nbsp;switch&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="519.55" y="27.83" width="168" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-16" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-32" target="Qid6VN-JK0h27-6GNhbc-22" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="517.67" y="320" as="sourcePoint" />
+            <mxPoint x="717.67" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-17" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-16" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-18" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.lcd_monitor;" parent="1" vertex="1">
+          <mxGeometry x="410.33" y="90" width="58" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-19" value="" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.desktop_pc;network2IconXOffset=-0.0034;network2IconYOffset=0.00035;network2IconW=0.453;network2IconH=0.9995;" parent="1" vertex="1">
+          <mxGeometry x="427.99999999999994" y="255.01" width="22.650000000000002" height="49.975" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-20" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-19" target="Qid6VN-JK0h27-6GNhbc-18" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="497.66999999999996" y="260" as="sourcePoint" />
+            <mxPoint x="667.67" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-21" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-20" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-22" value="" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.video_projector;network2IconYOffset=0.013;network2IconW=1;network2IconH=0.294;" parent="1" vertex="1">
+          <mxGeometry x="638" y="97.83000000000001" width="110" height="32.34" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-23" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-19" target="Qid6VN-JK0h27-6GNhbc-25" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="517.67" y="320" as="sourcePoint" />
+            <mxPoint x="677.67" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-24" value="HDMI" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-23" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-25" value="HDMI -&amp;gt; VGA konvertor" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/media_converters/Media_Converter_Modular.svg;" parent="1" vertex="1">
+          <mxGeometry x="550" y="265" width="38.9" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-32" value="VGA switch" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png" parent="1" vertex="1">
+          <mxGeometry x="653" y="240" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-33" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-25" target="Qid6VN-JK0h27-6GNhbc-32" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="480" as="sourcePoint" />
+            <mxPoint x="670" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-34" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-33" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-35" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-37" target="Qid6VN-JK0h27-6GNhbc-32" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="627" y="490" as="sourcePoint" />
+            <mxPoint x="520" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-36" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-35" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-37" value="HDMI -&amp;gt; VGA konvertor" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/media_converters/Media_Converter_Modular.svg;" parent="1" vertex="1">
+          <mxGeometry x="673.55" y="390" width="38.9" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-40" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-42" target="Qid6VN-JK0h27-6GNhbc-37" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="530" as="sourcePoint" />
+            <mxPoint x="410" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-41" value="HDMI" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-40" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-42" value="" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/computer_and_terminals/Laptop.svg;" parent="1" vertex="1">
+          <mxGeometry x="519.55" y="370.06" width="68.9" height="69.88" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-43" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;HDMI switch&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="397.99999999999994" y="560" width="168" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-44" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-47" target="Qid6VN-JK0h27-6GNhbc-54" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475.34" y="887.17" as="sourcePoint" />
+            <mxPoint x="675.3399999999999" y="907.17" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-45" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-44" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-46" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.lcd_monitor;" parent="1" vertex="1">
+          <mxGeometry x="368" y="624.8299999999999" width="58" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-47" value="Premietací desktop" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.desktop_pc;network2IconXOffset=-0.0034;network2IconYOffset=0.00035;network2IconW=0.453;network2IconH=0.9995;" parent="1" vertex="1">
+          <mxGeometry x="385.66999999999996" y="822.18" width="22.650000000000002" height="49.975" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-48" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-47" target="Qid6VN-JK0h27-6GNhbc-46" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="455.34" y="827.17" as="sourcePoint" />
+            <mxPoint x="625.3399999999999" y="837.17" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-49" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-48" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-50" value="" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.video_projector;network2IconYOffset=0.013;network2IconW=1;network2IconH=0.294;" parent="1" vertex="1">
+          <mxGeometry x="595.6700000000001" y="624.83" width="110" height="32.34" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-51" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-54" target="Qid6VN-JK0h27-6GNhbc-53" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475.34" y="887.17" as="sourcePoint" />
+            <mxPoint x="635.3399999999999" y="907.17" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-52" value="HDMI" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-51" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-53" value="HDMI -&amp;gt; VGA konvertor" style="image;points=[];aspect=fixed;html=1;align=left;shadow=0;dashed=0;image=img/lib/allied_telesis/media_converters/Media_Converter_Modular.svg;labelPosition=right;verticalLabelPosition=middle;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="631.22" y="715" width="38.9" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-54" value="HDMI switch" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png" parent="1" vertex="1">
+          <mxGeometry x="610.6700000000001" y="807.17" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-55" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-53" target="Qid6VN-JK0h27-6GNhbc-50" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="627.6700000000001" y="1047.17" as="sourcePoint" />
+            <mxPoint x="627.6700000000001" y="867.17" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-56" value="VGA" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-55" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-60" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-62" target="Qid6VN-JK0h27-6GNhbc-54" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="407.67" y="1097.17" as="sourcePoint" />
+            <mxPoint x="631.22" y="972.1700000000001" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-61" value="HDMI" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-60" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-62" value="Notebook hosťa" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/computer_and_terminals/Laptop.svg;imageBackground=none;fillStyle=cross-hatch;imageBorder=none;" parent="1" vertex="1">
+          <mxGeometry x="827" y="807.17" width="78.76" height="79.88" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-63" value="" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_128x128.png" parent="1" vertex="1">
+          <mxGeometry x="133" y="807.17" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-64" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-47" target="Qid6VN-JK0h27-6GNhbc-63" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="918" y="895" as="sourcePoint" />
+            <mxPoint x="1018" y="895" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-65" value="Ethernet" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-64" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-68" value="Mobil na kancli" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.mobile;pointerEvents=1;direction=south;" parent="1" vertex="1">
+          <mxGeometry x="138" y="631.33" width="70" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-71" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-63" target="Qid6VN-JK0h27-6GNhbc-68" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="530" y="800" as="sourcePoint" />
+            <mxPoint x="630" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-72" value="Wi-Fi" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-71" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-73" value="Streamovací desktop" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.desktop_pc;network2IconXOffset=-0.0034;network2IconYOffset=0.00035;network2IconW=0.453;network2IconH=0.9995;" parent="1" vertex="1">
+          <mxGeometry x="161.67" y="980" width="22.650000000000002" height="49.975" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-74" value="Stopky na kancli" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=standard;symbol=timer;" parent="1" vertex="1">
+          <mxGeometry x="70" y="638.33" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-76" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="Qid6VN-JK0h27-6GNhbc-63" target="Qid6VN-JK0h27-6GNhbc-73" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="530" y="800" as="sourcePoint" />
+            <mxPoint x="630" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Qid6VN-JK0h27-6GNhbc-77" value="Ethernet" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="Qid6VN-JK0h27-6GNhbc-76" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

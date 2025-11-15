@@ -24,7 +24,7 @@ function copyBible {
 WORK_DIR=$(mktemp -d)
 
 # Unpack OpenSong
-7z x -o$WORK_DIR OpenSong-portable-configured-nocontent.7z
+7z x -o$WORK_DIR opensong-portable-configured-nocontent.7z
 OPENSONG_DIR="$WORK_DIR/OpenSong-portable"
 
 # Copy songs
