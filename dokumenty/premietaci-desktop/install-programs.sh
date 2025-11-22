@@ -47,8 +47,9 @@ function install-video-software {
   sudo zypper install -y --from packman ffmpeg gstreamer-plugins-bad gstreamer-plugins-libav gstreamer-plugins-ugly vlc vlc-codecs smplayer
 
   # DVD playback
-  sudo zypper addrepo -f http://opensuse-guide.org/repo/openSUSE_Leap_${OPENSUSE_LEAP_VERSION}/ dvd
+  sudo zypper addrepo https://download.videolan.org/SuSE/${OPENSUSE_LEAP_VERSION} VLC
   sudo zypper --gpg-auto-import-keys refresh
+  sudo zypper modifyrepo --priority 100 VLC
   sudo zypper install -y libdvdcss2
 }
 
@@ -63,18 +64,21 @@ function install-deskreen {
   curl -SLo $DESKREEN_ICON https://www.dropbox.com/scl/fi/xkbe1jgkpjz3sgpbv243n/deskreen-logo-icon_512x512.png?rlkey=243u3siohoqcbaavpxep12bkp&st=wht81lwe&dl=0
   mv $DESKREEN_ICON "$DESKREEN_DIR"
   create-menu-entry Deskreen "$DESKREEN_DIR/$DESKREEN_FILE" "$DESKREEN_DIR/$DESKREEN_ICON"
+  sudo firewall-cmd --permanent --add-port=3131/tcp
+  sudo firewall-cmd --reload
 }
 
-# openSUSE Leap 15.6 specific installation of OpenLP utilizing Python virtual environment since distro package is not available
+# Installation of OpenLP utilizing Python virtual environment.
+# Originally created for openSUSE Leap 15.6 since distro package is not available
 # and pure source code version does not work because of Python packages conflicts
 function install-openlp {
   OPENLP_DIR=$1
   OPENLP_VERSION=3.1.7
 
-  # Install Python 3.11 environment
+  # Install Python environment
   mkdir -p "$OPENLP_DIR"
-  sudo zypper -n install python311-devel gcc-c++ libicu-devel dbus-1-devel glib2-devel
-  python3.11 -m venv "$OPENLP_DIR/.venv"
+  sudo zypper -n install python313-devel gcc-c++ libicu-devel dbus-1-devel glib2-devel
+  python3.13 -m venv "$OPENLP_DIR/.venv"
   source "$OPENLP_DIR/.venv/bin/activate"
   python -m pip install --upgrade pip
   python -m pip install alembic beautifulsoup4 chardet dbus-python distro flask flask-cors lxml Mako packaging platformdirs PyICU 'pymediainfo>=2.2' 'PyQt5>=5.12' PyQtWebEngine QtAwesome qrcode requests SQLAlchemy waitress websockets python-vlc
@@ -145,8 +149,9 @@ function install-xnview-classic {
   EXE_PATH="${DESTINATION_DIR}/xnview.exe"
   ICON_PATH="${DESTINATION_DIR}/xnview.ico"
   wrestool -x -t 14 "${EXE_PATH}" > "${ICON_PATH}"
-  create-menu-entry XnView "wine ${EXE_PATH}" "${ICON_PATH}"
-  XNVIEW_CONFIG_DIR=~/.wine/drive_c/users/${USER}/AppData/Roaming/XnView
+  WINEPREFIX="$HOME/.wine-xnview"
+  create-menu-entry XnView "flatpak run --env=\"WINEPREFIX=${WINEPREFIX}\" ${WINE_FLATPAK} ${EXE_PATH}" "${ICON_PATH}"
+  XNVIEW_CONFIG_DIR="$WINEPREFIX/drive_c/users/${USER}/AppData/Roaming/XnView"
   mkdir -p $XNVIEW_CONFIG_DIR
   cp xnview.ini $XNVIEW_CONFIG_DIR/xnview.ini
   rm -d XnView
@@ -179,7 +184,7 @@ function install-opensong {
   clone-git-repo "${SONGS_DIR}" spevokol Ine/Spevokol
   mkdir -p "${SONGS_DIR}/Ine/Rozne"
   clone-git-repo "${DESTINATION_DIR}" opensong-bibles OpenSong\ Scripture
-  create-menu-entry OpenSong "wine ${DESTINATION_DIR}/OpenSong.exe" "${DESTINATION_DIR}/OpenSong2.ico"
+  create-menu-entry OpenSong "flatpak run --env=\"WINEPREFIX=$HOME/.wine-opensong\" ${WINE_FLATPAK} ${DESTINATION_DIR}/OpenSong.exe" "${DESTINATION_DIR}/OpenSong2.ico"
   rm -d OpenSong-portable
   rm ${PACKAGE_FILE}
 }
@@ -219,9 +224,8 @@ function install-firefox {
 
 function install-optional-software {
   # General
-  sudo zypper install -y mc htop krename zip arj unrar keepassxc audacity arandr dcraw exiftool flatpak
+  sudo zypper install -y mc htop krename zip arj unrar keepassxc audacity arandr dcraw exiftool
   # XnViewMP via flatpak - with full filesystem access
-  sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
   sudo flatpak install -y flathub com.xnview.XnViewMP
   sudo flatpak override com.xnview.XnViewMP --filesystem=host
 }
@@ -277,6 +281,7 @@ function configure-kde-plasma {
   # Virtual Desktops - set the number to 1 and remove desktop switcher
   kwriteconfig5 --file kwinrc --group Desktops --key Number 1
   kwriteconfig5 --file kwinrc --group Desktops --key Rows 1
+  kwriteconfig5 --file kwinrc --group Desktops --key Id_2 --delete
   qdbus6 org.kde.KWin /KWin reconfigure
   remove-icon-from-panel org.kde.plasma.pager
 
@@ -287,10 +292,10 @@ function configure-kde-plasma {
   sed-appletsrc 'org\.kde\.plasma\.icontasks' '\[Containments\]\[2\]\[Applets\]\[5\]\[Configuration\]\[General\]\nlaunchers=\ngroupingStrategy=0\nonlyGroupWhenFull=false\nhighlightWindows=false'
 
   # Display seconds in digital clock
-  sed-appletsrc 'org\.kde\.plasma\.digitalclock' '\[Containments\]\[2\]\[Applets\]\[19\]\[Configuration\]\[Appearance\]\nshowSeconds=true'
+  sed-appletsrc 'org\.kde\.plasma\.digitalclock' '\[Containments\]\[2\]\[Applets\]\[19\]\[Configuration\]\[Appearance\]\nshowSeconds=Always'
 
   # Display flag in keyboard layout
-  sed-appletsrc 'org\.kde\.plasma\.keyboardlayout' '\[Containments\]\[8\]\[Applets\]\[18\]\[Configuration\]\[General\]\ndisplayStyle=Flag'
+  sed-appletsrc 'org\.kde\.plasma\.keyboardlayout' '\[Containments\]\[2\]\[Applets\]\[7\]\[Applets\]\[8\]\[Configuration\]\[General\]\ndisplayStyle=Flag'
 
   # Keyboard
   kwriteconfig5 --file kxkbrc --group Layout --key LayoutList "us,sk"
@@ -302,14 +307,14 @@ function configure-kde-plasma {
   kwriteconfig5 --file plasma-localerc --group Formats --key LANG sk_SK.UTF-8
 
   # Disabling Power Management
-  kwriteconfig5 --file powermanagementprofilesrc --group AC --group DPMSControl --key idleTime --delete
-  kwriteconfig5 --file powermanagementprofilesrc --group AC --group DPMSControl --key lockBeforeTurnOff --delete
-  kwriteconfig5 --file powermanagementprofilesrc --group AC --group DimDisplay --key idleTime --delete
-  kwriteconfig5 --file powermanagementprofilesrc --group AC --group SuspendSession --key idleTime --delete
+  kwriteconfig5 --file powerdevilrc --group AC --group DPMSControl --key idleTime --delete
+  kwriteconfig5 --file powerdevilrc --group AC --group DPMSControl --key lockBeforeTurnOff --delete
+  kwriteconfig5 --file powerdevilrc --group AC --group DimDisplay --key idleTime --delete
+  kwriteconfig5 --file powerdevilrc --group AC --group SuspendSession --key idleTime --delete
   # Note - reloading config via qdbus no longer supported since Plasma 5.27
 
   # Disabling screen locking
-  kwriteconfig5 --file kscreenlockerrc --group Daemon --key Autolock false
+  kwriteconfig5 --file kscreenlockerrc --group Daemon --key Timeout 0
 
   # Turn on Num Lock on login
   kwriteconfig5 --file kcminputrc --group Keyboard --key NumLock 0
@@ -317,11 +322,23 @@ function configure-kde-plasma {
 
 function os-configuration {
   # Important software installation
-  sudo zypper install -y krusader wine 7zip unzip qt6-tools-qdbus crudini icoutils
+  ## Repo for crudini
+  sudo zypper addrepo https://download.opensuse.org/repositories/Cloud:OpenStack:Factory/${OPENSUSE_LEAP_VERSION}/Cloud:OpenStack:Factory.repo
+  sudo zypper --gpg-auto-import-keys refresh
+  sudo zypper install -y krusader wine 7zip unzip qt6-tools-qdbus crudini icoutils flatpak
+  sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  sudo flatpak install -y flathub ${WINE_FLATPAK}/x86_64/stable-25.08
+  sudo flatpak override ${WINE_FLATPAK} --filesystem=host
+  sudo flatpak config --set languages "en;sk"
+  sudo flatpak update -y
 
-  # Set GRUB timeout to 0
+  # GRUB
+  ## Set GRUB timeout to 0
   sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
   grep -q '^GRUB_TIMEOUT=' /etc/default/grub || echo 'GRUB_TIMEOUT=0' | sudo tee -a /etc/default/grub
+  ## Enable running of 32 bit apps such as OpenSong or XnView
+  sudo /usr/sbin/update-bootloader --add-option "ia32_emulation=1"
+  ## Write GRUB configuration
   if [ -d /sys/firmware/efi ]; then
     sudo grub2-mkconfig -o /boot/efi/EFI/opensuse/grub.cfg
   else
@@ -333,7 +350,8 @@ function os-configuration {
 }
 
 
-OPENSUSE_LEAP_VERSION=15.6
+OPENSUSE_LEAP_VERSION=16.0
+WINE_FLATPAK=org.winehq.Wine
 PROGRAMS_DIR=~/programs
 mkdir -p $PROGRAMS_DIR
 echo "Sudo is required for installation of some packages via zypper"

@@ -17,26 +17,32 @@ Nastavenia v BIOSe:
 
 ## Operačný systém
 
-- Linux, konkrétne openSUSE Leap 15.6, [stiahnuť ISO obraz](https://download.opensuse.org/distribution/leap/15.6/iso/openSUSE-Leap-15.6-DVD-x86_64-Media.iso)
+- Linux, konkrétne openSUSE Leap 16.0, [stiahnuť ISO obraz](https://download.opensuse.org/distribution/leap/16.0/offline/Leap-16.0-offline-installer-x86_64.install.iso)
 - napáliť obraz na DVD, resp. nahrať na USB, resp. vložiť do virtuálnej CD mechaniky vo VirtualBox-e
 - spustiť inštaláciu openSUSE, použiť nasledovné voľby pre inštaláciu vo VirtualBox-e
-  (na fyzickom počítači treba venovať patričnú pozornosť správnemu nastaveniu Disk Partitioning (rozdelenie disku), teda kam sa openSUSE nainštaluje) :
-  - Language (Jazyk) - _Slovak - Slovenčina_, Rozloženie klávesnice - _Anglická (US)_, potom _Dopredu_
-  - Online repozitáre - _Áno_
-  - Zoznam On-line repozitárov - _Dopredu_
-  - Systémová rola - _Personal computer with KDE Plasma_, potom _Dopredu_
-  - Rozdelenie disku - _Dopredu_
-  - Hodiny a časové pásmo - _Dopredu_
-  - Lokálni používatelia - 
-    - Celé meno používateľa: `Projekcia`
-    - Používateľské meno: `projekcia`
-    - Heslo a Potvrďte heslo: je to na vás, napr. `projekcia`
-    - potom _Dopredu_
-  - Nastavenie inštalácie - _Inštalovať_
-  - Potvrdiť inštaláciu - _Inštalovať_
+  (na fyzickom počítači treba venovať patričnú pozornosť správnemu nastaveniu _Storage_, teda kam sa openSUSE nainštaluje) :
+  - Select a product - _Leap 16.0_
+  - v ľavom menu Localization - Language / Change: _Slovak_, Time zone / Change: _Europe-Bratislava_
+  - v ľavom menu Storage - New partitions will be created for...
+    - zmeniť File system pre partíciu "/" na _Ext4_
+    - odstrániť _swap_ 
+  - v ľavom menu Software - Change selection
+    - zapnúť _KDE Applications and Plasma Desktop_  
+    - vypnúť _SELinux Support_
+  - v ľavom menu Authentication
+    - First user / Define a user now
+      - Full name: `Projekcia`
+      - Username: `projekcia`
+      - Password a Password confirmation: je to na vás, napr. `projekcia`
+  - vpravo hore kliknúť na _Install_ a potvrdiť pomocou _Continue_
 - voliteľné pre fyzický počítač: nakonfigurovať partície v `/etc/fstab`
   - _options_ pre systémy súborov (ext4 - `discard`, `nodelassoc`, ...)
   - _tempfs_ for temp. directories
+- nainštalovať aktualizácie - v termináli (program _Konsole_) spustiť (bude vyžadovať zadanie hesla):
+  ```shell
+  sudo zypper update -y
+  sudo reboot
+  ```
 - pre virtuálny počítač vo VirtualBox-e treba nainštalovať _Guest Additions_
   - vo VirtualBox menu bežiaceho virtuálneho počítača spustiť: _Devices_ / _Insert Guest Additions CD Image..._
   - v termináli (program _Konsole_) spustiť (bude vyžadovať zadanie hesla) 
@@ -63,6 +69,8 @@ sudo zypper install -y git \
 
 Následne je potrebné sa odhlásiť a zase prihlásiť.
 
+Presunúť spúšťacie ikony programov z oblasti napravo od "systray" do oblasti napravo od tlačidla "štart". 
+
 ### OBS
 
 OBS aj s podporou NDI sa síce nainštaluje v predošlom kroku, ale jeho konfiguráciu treba spraviť manuálne (konfigurácia je uložená v JSON databáze, ktorú nie je
@@ -79,3 +87,31 @@ Vo Firefoxe kliknúť na puzzle ikonku vpravo hore, potom _Spravovať rozšíren
 - Video DownloadHelper - sťahovanie videí napr. z YouTube. Jeho _co-app_ ("companion application") je už nainštalovaná,  
   ale samotné rozšírenie treba nainštalovať ručne . Odporúčam zmeniť adresár, do ktorého ukladá stiahnuté videá - 
   kliknúť na puzzle ikonku vpravo hore, potom _Video DownloadHelper_, potom ozubené koliesko vľavo dole, potom _More settings_, potom _Download directory_ a _Change_ a vyberte štandardný priečinok pre stiahnuté súbory.
+
+## Upgrade OS z openSUSE Leap 15.6 na 16.0
+
+1. Možnosť (nie vždy funguje)
+
+```shell
+sudo zypper in -y opensuse-migration-tool
+sudo opensuse-migration-tool
+sudo reboot
+```
+
+2. Ak predošlý postup zlyhal, ale _opensuse-migration-tool_ upravil repozitáre pre novú verziu, tak potom:
+
+```shell
+sudo zypper --releasever 16.0 dup
+sudo reboot
+```
+
+OBS - zdroj typu _Display Capture (XSHM)_ už nie je k dispozícii (vo Wayland sedení), treba nahradiť za _Screen Capture (PipeWire)_.
+
+Treba nanovo nainštalovať niektoré programy (teda spustiť niektoré časti skriptu `install-programs.sh`):
+
+- konfigurácia OS - funkcia `os-configuration`
+- firewall - overiť otvorenie portov pre NDI a Deskreen, pozri funkcie `install-obs-with-ndi` a  `install-deskreen`
+- _VLC_, _libdvdcss2_ - `install-video-software`
+- _XnView_ - funkcia `install-xnview-classic`
+- _OpenLP_ - funkcia `install-openlp`
+- _OpenSong_ - spúšťanie cez Flatpak Wine, t.j. v ikone nahradiť v _Application/Program_ `wine` za `flatpak run org.winehq.Wine`
