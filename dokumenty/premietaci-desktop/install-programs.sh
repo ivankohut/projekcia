@@ -55,13 +55,14 @@ function install-video-software {
 
 function install-deskreen {
   DESKREEN_DIR="$1"
+  DESKREEN_VERSION=3.1.19
   DESKREEN_FILE=Deskreen.AppImage
-  curl --show-error --location --output $DESKREEN_FILE https://www.dropbox.com/scl/fi/sorz2egjuqnemowmdmqaf/Deskreen-2.0.4.AppImage?rlkey=licmgk2rcufdzrknfn8flkd4y&st=cg9f4xq2&dl=0
+  curl --show-error --location --output $DESKREEN_FILE https://github.com/pavlobu/deskreen/releases/download/v${DESKREEN_VERSION}/deskreen-ce-${DESKREEN_VERSION}-x86_64.AppImage
   chmod +x $DESKREEN_FILE
   mkdir --parents "$DESKREEN_DIR"
   mv $DESKREEN_FILE "$DESKREEN_DIR"
   DESKREEN_ICON=deskreen.png
-  curl --show-error --location --output $DESKREEN_ICON https://www.dropbox.com/scl/fi/xkbe1jgkpjz3sgpbv243n/deskreen-logo-icon_512x512.png?rlkey=243u3siohoqcbaavpxep12bkp&st=wht81lwe&dl=0
+  curl --show-error --location --output $DESKREEN_ICON https://raw.githubusercontent.com/pavlobu/deskreen/master/resources/icon.png
   mv $DESKREEN_ICON "$DESKREEN_DIR"
   create-menu-entry Deskreen "$DESKREEN_DIR/$DESKREEN_FILE" "$DESKREEN_DIR/$DESKREEN_ICON"
   sudo firewall-cmd --permanent --add-port=3131/tcp
