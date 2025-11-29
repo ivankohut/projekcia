@@ -213,7 +213,7 @@ function install-firefox {
   PROFILE_DIR=$(find ~/.mozilla/firefox/ -iname *.default)
   EXTENSIONS_DIR=$PROFILE_DIR/extensions
   mkdir -p $EXTENSIONS_DIR
-  curl -Lo $EXTENSIONS_DIR/{b9db16a4-6edc-47ec-a1f4-b86292ed211d}.xpi https://addons.mozilla.org/firefox/downloads/file/4480208/video_downloadhelper-9.3.7.2.xpi
+  curl -Lo $EXTENSIONS_DIR/{b9db16a4-6edc-47ec-a1f4-b86292ed211d}.xpi https://addons.mozilla.org/firefox/downloads/file/4502183/video_downloadhelper-9.5.0.2.xpi
   # Video Download Helper CoApp
   curl -sSLf https://github.com/aclap-dev/vdhcoapp/releases/latest/download/install.sh | bash
 }
