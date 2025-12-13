@@ -54,14 +54,13 @@ function install-video-software {
 
 function install-deskreen {
   DESKREEN_DIR="$1"
-  DESKREEN_VERSION=2.0.4
   DESKREEN_FILE=Deskreen.AppImage
-  curl -SLo $DESKREEN_FILE https://github.com/pavlobu/deskreen/releases/download/v${DESKREEN_VERSION}/Deskreen-${DESKREEN_VERSION}.AppImage
+  curl -SLo $DESKREEN_FILE https://www.dropbox.com/scl/fi/sorz2egjuqnemowmdmqaf/Deskreen-2.0.4.AppImage?rlkey=licmgk2rcufdzrknfn8flkd4y&st=cg9f4xq2&dl=0
   chmod +x $DESKREEN_FILE
   mkdir -p "$DESKREEN_DIR"
   mv $DESKREEN_FILE "$DESKREEN_DIR"
   DESKREEN_ICON=deskreen.png
-  curl -SLo $DESKREEN_ICON https://deskreen.com/img/deskreen-logo-icon_512x512.png
+  curl -SLo $DESKREEN_ICON https://www.dropbox.com/scl/fi/xkbe1jgkpjz3sgpbv243n/deskreen-logo-icon_512x512.png?rlkey=243u3siohoqcbaavpxep12bkp&st=wht81lwe&dl=0
   mv $DESKREEN_ICON "$DESKREEN_DIR"
   create-menu-entry Deskreen "$DESKREEN_DIR/$DESKREEN_FILE" "$DESKREEN_DIR/$DESKREEN_ICON"
 }
