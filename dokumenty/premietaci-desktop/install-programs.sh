@@ -85,7 +85,7 @@ function install-openlp {
 
   # Install OpenLP
   OPENLP_PACKAGE="OpenLP-$OPENLP_VERSION.tar.gz"
-  wget https://get.openlp.org/$OPENLP_VERSION/$OPENLP_PACKAGE
+  curl --show-error --location --remote-name https://get.openlp.org/$OPENLP_VERSION/$OPENLP_PACKAGE
   tar --extract --gzip --verbose --file="$OPENLP_PACKAGE" --directory="$OPENLP_DIR"
   rm --force $OPENLP_PACKAGE
 
@@ -106,7 +106,7 @@ function install-obs-with-ndi {
   sudo zypper install -y alien rpm-build obs-studio libsrt1_5 avahi ffmpeg-7
 
   # NDI library
-  wget https://raw.githubusercontent.com/DistroAV/DistroAV/refs/heads/master/CI/libndi-get.sh
+  curl --show-error --location --remote-name https://raw.githubusercontent.com/DistroAV/DistroAV/refs/heads/master/CI/libndi-get.sh
   chmod +x libndi-get.sh
   ./libndi-get.sh install
   rm libndi-get.sh
@@ -114,7 +114,7 @@ function install-obs-with-ndi {
   # DistroAV - OBS plugin providing NDI
   DISTROAV_VERSION=6.1.1
   DISTROAV_DEB=distroav-${DISTROAV_VERSION}-x86_64-linux-gnu.deb
-  wget https://github.com/DistroAV/DistroAV/releases/download/${DISTROAV_VERSION}/${DISTROAV_DEB}
+  curl --show-error --location --remote-name https://github.com/DistroAV/DistroAV/releases/download/${DISTROAV_VERSION}/${DISTROAV_DEB}
   alien --to-rpm ${DISTROAV_DEB}
   DISTROAV_RPM=distroav-${DISTROAV_VERSION}-2.x86_64.rpm
   # Using RPM directly in order to break missing dependency in a scriptable way (zypper does not allow that)
