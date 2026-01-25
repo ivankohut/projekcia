@@ -115,3 +115,18 @@ Treba nanovo nainštalovať niektoré programy (teda spustiť niektoré časti s
 - _XnView_ - funkcia `install-xnview-classic`
 - _OpenLP_ - funkcia `install-openlp`
 - _OpenSong_ - spúšťanie cez Flatpak Wine, t.j. v ikone nahradiť v _Application/Program_ `wine` za `flatpak run org.winehq.Wine`
+
+## Premietací počítač - statická IP adresa
+
+Statická IP adresa je užitočná nato, aby v mobile, ktorý zobrazuje obraz premietaný na plátne, nebolo treba v _Chrome_ meniť IP adresu pri pripájaní sa na _Deskreen_ (aby stačilo zmeniť len 6-ciferný kód na konci internetovej adresy).
+
+V termináli (program _Konsole_) spustiť:
+
+```shell
+sudo nmcli con mod "Wired connection 1" \
+  ipv4.addresses 192.168.20.80/24 \
+  ipv4.gateway 192.168.20.1 \
+  ipv4.dns "1.1.1.1,1.0.0.1" \
+  ipv4.method manual
+sudo nmcli con up "Wired connection 1"
+```
