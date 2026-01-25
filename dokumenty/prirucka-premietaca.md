@@ -47,7 +47,7 @@ Premietajú sa:
   časť) premietnutý až kým nie je dôvod ho vypnúť (napr. zmena témy, koniec kázne, premietanie iného textu a pod.),
 - rôzne na požiadanie (Powerpoint a PDF prezentácie, videá, audio, fotky a pod.).
 
-Treba prísť aspoň 30 minút pred začiatkom, aby bol čas na všetky potrebné kroky:
+Treba prísť aspoň 30 minút pred začiatkom, aby bol čas na všetky potrebné kroky a aj kvôli iných slúžiacim a technikom, aby nemali obavu, či projekcia bude, a aby nemali zbytočné starosti s hľadaním nejakej náhrady.
 
 ### Pred začiatkom zhromaždenia
 
@@ -65,15 +65,13 @@ Treba prísť aspoň 30 minút pred začiatkom, aby bol čas na všetky potrebn�
   - verš na mesiac (XnView, premietnutie obrázku - F11)
   - odpočítavacie video (OpenLP)
   - nepravidelné materiály (prezentácie a pod. (premietnutie PDF - Ctrl + Shift + P))
-- ! počas odpočítavacieho videa už nič nepripravovať - ak OpenLP stratí focus, tak nezobrazuje spustené video
 - 9:25:00 spustiť odpočítavacie video
-
-Prísť dopredu je dôležité aj kvôli iných slúžiacim a technikom, aby nemali obavu, či projekcia bude, a aby nemali zbytočné starosti s hľadaním nejakej náhrady.
 
 ### Po skončení zhromaždenia
 
-- vypnúť projektor
+- upratať po sebe v počítači - stiahnuté súbory (`/home/projekcia/Downloads`), pracovná plocha (`/home/projekcia/Desktop`), atď.
 - vypnúť počítač
+- vypnúť projektor
 - mobil na kancli - vypnúť a odložiť do zásuvky
 - stopky na kancli - vynulovať a odložiť do zásuvky
 - ďiaľkový ovládač prezentácie (ak bol použitý) - vložiť doň prijímač (USB) a odložiť do zásuvky
