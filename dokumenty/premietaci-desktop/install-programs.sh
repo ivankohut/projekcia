@@ -328,6 +328,11 @@ function os-configuration {
   sudo zypper install -y krusader wine 7zip unzip qt6-tools-qdbus crudini icoutils flatpak
   sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
   sudo flatpak install -y flathub ${WINE_FLATPAK}/x86_64/stable-25.08
+
+  # Reverting to and locking the last working version containing Wine 10.0, later version contain Wine 11.0 which is broken (both OpenSong and XnView fail to start)
+  sudo flatpak update -y --commit=eb95e7af9b9c8f3bfaf26883952e1a4a866b21c3463418ac664e223cda898621 ${WINE_FLATPAK}/x86_64/stable-25.08
+  sudo flatpak mask ${WINE_FLATPAK}
+
   sudo flatpak override ${WINE_FLATPAK} --filesystem=host
   sudo flatpak config --set languages "en;sk"
   sudo flatpak update -y
