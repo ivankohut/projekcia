@@ -2,9 +2,10 @@
 
 set -ex
 
-# Installation of programs after basic openSUSE 15.6 installation to setup the system and the current user for "projekcia"
+# Installation of programs after basic openSUSE Leap installation to setup the system and the current user for "projekcia"
 
 function add-menu-entry-to-kde-panel {
+  # Note. Panel icons (*.desktop files) are stored in ~/.local/share/plasma_icons
   DESKTOP_FILE=$1
   qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
   var panel = panelById('org.kde.plasma.panel') || panels()[0];
