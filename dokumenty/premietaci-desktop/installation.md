@@ -10,6 +10,7 @@ Nastavenia v BIOSe (dostať sa doň pomocou tlačidiel F2 alebo Del):
 
 - Boot / Boot Configuration / POST Delay Time - 1 sec
 - Advanced / NB Configuration / UMA Frame Buffer Size - 2G
+- Advanced / APM Configuration / Power On By PCI-E - Enabled
 
 ### Iný počítač, skutočný alebo virtuálny (VirtualBox)
 
@@ -88,17 +89,31 @@ Vo Firefoxe kliknúť na puzzle ikonku vpravo hore, potom _Spravovať rozšíren
   ale samotné rozšírenie treba nainštalovať ručne . Odporúčam zmeniť adresár, do ktorého ukladá stiahnuté videá - 
   kliknúť na puzzle ikonku vpravo hore, potom _Video DownloadHelper_, potom ozubené koliesko vľavo dole, potom _More settings_, potom _Download directory_ a _Change_ a vyberte štandardný priečinok pre stiahnuté súbory.
 
-## Premietací počítač - statická IP adresa
+## Premietací počítač na Palisádach - sieťové nastavenia
 
-Statická IP adresa je užitočná nato, aby v mobile, ktorý zobrazuje obraz premietaný na plátne, nebolo treba v _Chrome_ meniť IP adresu pri pripájaní sa na _Deskreen_ (aby stačilo zmeniť len 6-ciferný kód na konci internetovej adresy).
+Statická IP adresa je užitočná nato 
+
+* aby v mobile, ktorý zobrazuje obraz premietaný na plátne, nebolo treba v _Chrome_ meniť IP adresu pri pripájaní sa na _Deskreen_ (aby stačilo zmeniť len 6-ciferný kód na konci internetovej adresy),
+* aby sa dalo na počítač pripojiť vzdialene cez VPN.
+
+Vzdialený prístup - potrebuje Wake on LAN (vzdalené zapnutie) a SSH server (vzdialené prihlásenie cez terminál).
 
 V termináli (program _Konsole_) spustiť:
 
 ```shell
-sudo nmcli con mod "Wired connection 1" \
+# Statická IP adresa a Wake on LAN (pre vzdialené zapnutie počítača)
+NM_CONNECTION_NAME="Wired connection 1"
+sudo nmcli connection modify "$NM_CONNECTION_NAME" \
   ipv4.addresses 192.168.20.80/24 \
   ipv4.gateway 192.168.20.1 \
   ipv4.dns "1.1.1.1,1.0.0.1" \
-  ipv4.method manual
-sudo nmcli con up "Wired connection 1"
-```
+  ipv4.method manual \
+  802-3-ethernet.wake-on-lan magic
+sudo nmcli connection up "$NM_CONNECTION_NAME"
+
+# SSH server
+sudo zypper install -y openssh
+sudo systemctl enable --now sshd
+sudo firewall-cmd --permanent --add-service ssh
+sudo firewall-cmd --reload
+``` 
