@@ -88,34 +88,6 @@ Vo Firefoxe kliknúť na puzzle ikonku vpravo hore, potom _Spravovať rozšíren
   ale samotné rozšírenie treba nainštalovať ručne . Odporúčam zmeniť adresár, do ktorého ukladá stiahnuté videá - 
   kliknúť na puzzle ikonku vpravo hore, potom _Video DownloadHelper_, potom ozubené koliesko vľavo dole, potom _More settings_, potom _Download directory_ a _Change_ a vyberte štandardný priečinok pre stiahnuté súbory.
 
-## Upgrade OS z openSUSE Leap 15.6 na 16.0
-
-1. Možnosť (nie vždy funguje)
-
-```shell
-sudo zypper in -y opensuse-migration-tool
-sudo opensuse-migration-tool
-sudo reboot
-```
-
-2. Ak predošlý postup zlyhal, ale _opensuse-migration-tool_ upravil repozitáre pre novú verziu, tak potom:
-
-```shell
-sudo zypper --releasever 16.0 dup
-sudo reboot
-```
-
-OBS - zdroj typu _Display Capture (XSHM)_ už nie je k dispozícii (vo Wayland sedení), treba nahradiť za _Screen Capture (PipeWire)_.
-
-Treba nanovo nainštalovať niektoré programy (teda spustiť niektoré časti skriptu `install-programs.sh`):
-
-- konfigurácia OS - funkcia `os-configuration`
-- firewall - overiť otvorenie portov pre NDI a Deskreen, pozri funkcie `install-obs-with-ndi` a  `install-deskreen`
-- _VLC_, _libdvdcss2_ - `install-video-software`
-- _XnView_ - funkcia `install-xnview-classic`
-- _OpenLP_ - funkcia `install-openlp`
-- _OpenSong_ - spúšťanie cez Flatpak Wine, t.j. v ikone nahradiť v _Application/Program_ `wine` za `flatpak run org.winehq.Wine`
-
 ## Premietací počítač - statická IP adresa
 
 Statická IP adresa je užitočná nato, aby v mobile, ktorý zobrazuje obraz premietaný na plátne, nebolo treba v _Chrome_ meniť IP adresu pri pripájaní sa na _Deskreen_ (aby stačilo zmeniť len 6-ciferný kód na konci internetovej adresy).
