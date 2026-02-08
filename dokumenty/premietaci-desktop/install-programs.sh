@@ -353,6 +353,9 @@ function os-configuration {
 
   # Disable delta RPM downloads
   sudo crudini --set /etc/zypp/zypp.conf download.use_deltarpm false
+
+  # Remove Discover to prevent unintentional installation of updates
+  sudo zypper remove -y discover6
 }
 
 
