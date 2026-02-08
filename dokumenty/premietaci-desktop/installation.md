@@ -6,10 +6,10 @@ Je potrebné rýchle internetové priprojenie.
 
 ### Premietací počítač na Palisádach
 
-Nastavenia v BIOSe:
+Nastavenia v BIOSe (dostať sa doň pomocou tlačidiel F2 alebo Del):
 
-- GPU memory - Auto (2GB) -> 512MB
-- after POST waiting time - 3s -> 1s
+- Boot / Boot Configuration / POST Delay Time - 1 sec
+- Advanced / NB Configuration / UMA Frame Buffer Size - 2G
 
 ### Iný počítač, skutočný alebo virtuálny (VirtualBox)
 
