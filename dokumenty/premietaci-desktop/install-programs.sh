@@ -42,13 +42,13 @@ EOF
 
 function install-video-software {
   # VLC (to have additional multimedia codecs), ffmpeg, gstreamer and smplayer from _packman_ repository:
-  sudo zypper addrepo --check --refresh --priority 90 http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Leap_${OPENSUSE_LEAP_VERSION} packman
+  sudo zypper addrepo --check --refresh --priority 90 http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Leap_${OS_VERSION} packman
   sudo zypper --gpg-auto-import-keys refresh
   sudo zypper dist-upgrade -y --from packman --allow-downgrade --allow-vendor-change
   sudo zypper install -y --from packman ffmpeg gstreamer-plugins-bad gstreamer-plugins-libav gstreamer-plugins-ugly vlc vlc-codecs smplayer
 
   # DVD playback
-  sudo zypper addrepo https://download.videolan.org/SuSE/${OPENSUSE_LEAP_VERSION} VLC
+  sudo zypper addrepo https://download.videolan.org/SuSE/${OS_VERSION} VLC
   sudo zypper --gpg-auto-import-keys refresh
   sudo zypper modifyrepo --priority 100 VLC
   sudo zypper install -y libdvdcss2
@@ -57,12 +57,12 @@ function install-video-software {
 function install-deskreen {
   DESKREEN_DIR="$1"
   DESKREEN_FILE=Deskreen.AppImage
-  curl --show-error --location --output $DESKREEN_FILE https://www.dropbox.com/scl/fi/sorz2egjuqnemowmdmqaf/Deskreen-2.0.4.AppImage?rlkey=licmgk2rcufdzrknfn8flkd4y&st=cg9f4xq2&dl=0
+  curl --show-error --location --output $DESKREEN_FILE "https://www.dropbox.com/scl/fi/sorz2egjuqnemowmdmqaf/Deskreen-2.0.4.AppImage?rlkey=licmgk2rcufdzrknfn8flkd4y&st=cg9f4xq2&dl=0"
   chmod +x $DESKREEN_FILE
   mkdir --parents "$DESKREEN_DIR"
   mv $DESKREEN_FILE "$DESKREEN_DIR"
   DESKREEN_ICON=deskreen.png
-  curl --show-error --location --output $DESKREEN_ICON https://www.dropbox.com/scl/fi/xkbe1jgkpjz3sgpbv243n/deskreen-logo-icon_512x512.png?rlkey=243u3siohoqcbaavpxep12bkp&st=wht81lwe&dl=0
+  curl --show-error --location --output $DESKREEN_ICON "https://www.dropbox.com/scl/fi/xkbe1jgkpjz3sgpbv243n/deskreen-logo-icon_512x512.png?rlkey=243u3siohoqcbaavpxep12bkp&st=wht81lwe&dl=0"
   mv $DESKREEN_ICON "$DESKREEN_DIR"
   create-menu-entry Deskreen "$DESKREEN_DIR/$DESKREEN_FILE" "$DESKREEN_DIR/$DESKREEN_ICON"
   sudo firewall-cmd --permanent --add-port=3131/tcp
@@ -102,7 +102,7 @@ EOL
 }
 
 function install-obs-with-ndi {
-  sudo zypper addrepo https://download.opensuse.org/repositories/system:/packagemanager/${OPENSUSE_LEAP_VERSION}/system:packagemanager.repo
+  sudo zypper addrepo https://download.opensuse.org/repositories/system:/packagemanager/${OS_VERSION}/system:packagemanager.repo
   sudo zypper --gpg-auto-import-keys refresh
   sudo zypper install -y alien rpm-build obs-studio libsrt1_5 avahi ffmpeg-7
 
@@ -166,7 +166,6 @@ function clone-git-repo {
 function install-opensong {
   DESTINATION_DIR=$1
   mkdir --parents $DESTINATION_DIR
-  sudo zypper install -y git
   PACKAGE_FILE=opensong.7z
   curl --show-error --location --output ${PACKAGE_FILE} "https://www.dropbox.com/scl/fi/7v2ynw8kqugre0d7xdbxc/opensong-portable-configured-nocontent.7z?rlkey=zxctstsxegfgg7akv2scyzwfb&st=dd3b1s9m&dl=0"
   7z x ${PACKAGE_FILE}
@@ -265,7 +264,7 @@ function sed-appletsrc {
 
 function configure-kde-plasma {
   # Requires relogin, since:
-  # - reloading config via qdbus no longer supported since Plasma 5.27, which is the version of Plasma in current openSUSE
+  # - reloading config via qdbus no longer supported since Plasma 5.27
   # - reloading Plasma itself is not sufficient for some reason
 
   # Set desktop background to black color
@@ -324,7 +323,7 @@ function configure-kde-plasma {
 function os-configuration {
   # Important software installation
   ## Repo for crudini
-  sudo zypper addrepo https://download.opensuse.org/repositories/Cloud:OpenStack:Factory/${OPENSUSE_LEAP_VERSION}/Cloud:OpenStack:Factory.repo
+  sudo zypper addrepo https://download.opensuse.org/repositories/Cloud:OpenStack:Factory/${OS_VERSION}/Cloud:OpenStack:Factory.repo
   sudo zypper --gpg-auto-import-keys refresh
   sudo zypper install -y krusader wine 7zip unzip qt6-tools-qdbus crudini icoutils flatpak
   sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -359,7 +358,7 @@ function os-configuration {
 }
 
 
-OPENSUSE_LEAP_VERSION=16.0
+OS_VERSION=16.0
 WINE_FLATPAK=org.winehq.Wine
 PROGRAMS_DIR=~/programs
 mkdir --parents $PROGRAMS_DIR
