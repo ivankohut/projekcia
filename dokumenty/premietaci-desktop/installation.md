@@ -18,7 +18,7 @@ Nastavenia v BIOSe (dostať sa doň pomocou tlačidiel F2 alebo Del):
 
 ## Operačný systém
 
-- Linux, konkrétne openSUSE Leap 16.0, [stiahnuť ISO obraz](https://download.opensuse.org/distribution/leap/16.0/offline/Leap-16.0-offline-installer-x86_64.install.iso)
+- Linux, konkrétne Kubuntu 24.04, [stiahnuť ISO obraz](https://cdimage.ubuntu.com/kubuntu/releases/24.04.3/release/kubuntu-24.04.4-desktop-amd64.iso)
 - napáliť obraz na DVD, resp. nahrať na USB, resp. vložiť do virtuálnej CD mechaniky vo VirtualBox-e
 - naštartovať počítač z ISO obrazu, spustiť inštaláciu, použiť nasledovné voľby pre inštaláciu vo VirtualBox-e
   (na fyzickom počítači treba venovať patričnú pozornosť správnemu nastaveniu _Storage_, teda kam sa openSUSE nainštaluje) :
@@ -41,7 +41,8 @@ Nastavenia v BIOSe (dostať sa doň pomocou tlačidiel F2 alebo Del):
   - _tempfs_ for temp. directories
 - nainštalovať aktualizácie - v termináli (program _Konsole_) spustiť (bude vyžadovať zadanie hesla):
   ```shell
-  sudo zypper update -y
+  sudo apt update
+  sudo apt upgrade -y
   sudo reboot
   ```
 - pre virtuálny počítač vo VirtualBox-e treba nainštalovať _Guest Additions_
@@ -62,8 +63,7 @@ Spustiť nainštalovaný počítač (automatické prihlásenie ako používateľ
 otvoriť terminál (teda spustiť program _Konsole_) a spustiť v ňom tieto príkazy (bude vyžadovať zadanie hesla):
 
 ```shell
-sudo zypper install -y git \
-  && git clone https://github.com/ivankohut/projekcia.git \
+git clone https://github.com/ivankohut/projekcia.git \
   && cd projekcia/dokumenty/premietaci-desktop \
   && ./install-programs.sh
 ```
@@ -111,8 +111,6 @@ sudo nmcli connection modify "$NM_CONNECTION_NAME" \
 sudo nmcli connection up "$NM_CONNECTION_NAME"
 
 # SSH server
-sudo zypper install -y openssh
-sudo systemctl enable --now sshd
-sudo firewall-cmd --permanent --add-service ssh
-sudo firewall-cmd --reload
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
 ``` 

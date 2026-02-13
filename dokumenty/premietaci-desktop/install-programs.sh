@@ -7,7 +7,7 @@ set -ex
 function add-menu-entry-to-kde-panel {
   # Note. Panel icons (*.desktop files) are stored in ~/.local/share/plasma_icons
   DESKTOP_FILE=$1
-  qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
+  qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
   var panel = panelById('org.kde.plasma.panel') || panels()[0];
   var launcher = panel.addWidget('org.kde.plasma.icon');
   launcher.currentConfigGroup = ['General'];
@@ -41,17 +41,11 @@ EOF
 }
 
 function install-video-software {
-  # VLC (to have additional multimedia codecs), ffmpeg, gstreamer and smplayer from _packman_ repository:
-  sudo zypper addrepo --check --refresh --priority 90 http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Leap_${OS_VERSION} packman
-  sudo zypper --gpg-auto-import-keys refresh
-  sudo zypper dist-upgrade -y --from packman --allow-downgrade --allow-vendor-change
-  sudo zypper install -y --from packman ffmpeg gstreamer-plugins-bad gstreamer-plugins-libav gstreamer-plugins-ugly vlc vlc-codecs smplayer
-
+  # VLC and other "restricted" packages
+  sudo apt install -y ubuntu-restricted-extras vlc smplayer
   # DVD playback
-  sudo zypper addrepo https://download.videolan.org/SuSE/${OS_VERSION} VLC
-  sudo zypper --gpg-auto-import-keys refresh
-  sudo zypper modifyrepo --priority 100 VLC
-  sudo zypper install -y libdvdcss2
+  sudo apt install -y libdvd-pkg
+  sudo dpkg-reconfigure libdvd-pkg
 }
 
 function install-deskreen {
@@ -64,9 +58,8 @@ function install-deskreen {
   DESKREEN_ICON=deskreen.png
   curl --show-error --location --output $DESKREEN_ICON "https://www.dropbox.com/scl/fi/xkbe1jgkpjz3sgpbv243n/deskreen-logo-icon_512x512.png?rlkey=243u3siohoqcbaavpxep12bkp&st=wht81lwe&dl=0"
   mv $DESKREEN_ICON "$DESKREEN_DIR"
-  create-menu-entry Deskreen "$DESKREEN_DIR/$DESKREEN_FILE" "$DESKREEN_DIR/$DESKREEN_ICON"
-  sudo firewall-cmd --permanent --add-port=3131/tcp
-  sudo firewall-cmd --reload
+  create-menu-entry Deskreen "$DESKREEN_DIR/$DESKREEN_FILE --no-sandbox" "$DESKREEN_DIR/$DESKREEN_ICON"
+  sudo ufw allow 3131/tcp
 }
 
 # Installation of OpenLP utilizing Python virtual environment.
@@ -78,11 +71,11 @@ function install-openlp {
 
   # Install Python environment
   mkdir --parents "$OPENLP_DIR"
-  sudo zypper install -y python313-devel gcc-c++ libicu-devel dbus-1-devel glib2-devel
-  python3.13 -m venv "$OPENLP_DIR/.venv"
+  sudo apt install -y python3-dev libicu-dev libdbus-1-dev libglib2.0-dev python3-venv
+  python3 -m venv "$OPENLP_DIR/.venv"
   source "$OPENLP_DIR/.venv/bin/activate"
-  python -m pip install --upgrade pip
-  python -m pip install alembic beautifulsoup4 chardet dbus-python distro flask flask-cors lxml Mako packaging platformdirs PyICU 'pymediainfo>=2.2' 'PyQt5>=5.12' PyQtWebEngine QtAwesome qrcode requests SQLAlchemy waitress websockets python-vlc
+  python3 -m pip install --upgrade pip
+  python3 -m pip install alembic beautifulsoup4 chardet dbus-python distro flask flask-cors lxml Mako packaging platformdirs PyICU 'pymediainfo>=2.2' 'PyQt5>=5.12' PyQtWebEngine QtAwesome qrcode requests SQLAlchemy waitress websockets python-vlc
 
   # Install OpenLP
   OPENLP_PACKAGE="OpenLP-$OPENLP_VERSION.tar.gz"
@@ -102,9 +95,10 @@ EOL
 }
 
 function install-obs-with-ndi {
-  sudo zypper addrepo https://download.opensuse.org/repositories/system:/packagemanager/${OS_VERSION}/system:packagemanager.repo
-  sudo zypper --gpg-auto-import-keys refresh
-  sudo zypper install -y alien rpm-build obs-studio libsrt1_5 avahi ffmpeg-7
+  # OBS
+  sudo add-apt-repository -y ppa:obsproject/obs-studio
+  sudo apt update
+  sudo apt install -y obs-studio
 
   # NDI library
   curl --show-error --location --remote-name https://raw.githubusercontent.com/DistroAV/DistroAV/refs/heads/master/CI/libndi-get.sh
@@ -116,28 +110,22 @@ function install-obs-with-ndi {
   DISTROAV_VERSION=6.1.1
   DISTROAV_DEB=distroav-${DISTROAV_VERSION}-x86_64-linux-gnu.deb
   curl --show-error --location --remote-name https://github.com/DistroAV/DistroAV/releases/download/${DISTROAV_VERSION}/${DISTROAV_DEB}
-  alien --to-rpm ${DISTROAV_DEB}
-  DISTROAV_RPM=distroav-${DISTROAV_VERSION}-2.x86_64.rpm
-  # Using RPM directly in order to break missing dependency in a scriptable way (zypper does not allow that)
-  sudo rpm --install --nodeps --replacefiles --replacepkgs ${DISTROAV_RPM}
-  sudo ln --force --symbolic /usr/lib/x86_64-linux-gnu/obs-plugins/distroav.so /usr/lib64/obs-plugins/distroav.so
-  rm ${DISTROAV_RPM} ${DISTROAV_DEB}
+  sudo apt install ./${DISTROAV_DEB}
+  rm ${DISTROAV_DEB}
 
   # Firewall setup
   # Open TCP and UDP port ranges for NDI
-  sudo firewall-cmd --permanent --add-port=5960-5970/tcp
-  sudo firewall-cmd --permanent --add-port=5960-5970/udp
-  sudo firewall-cmd --permanent --add-port=6960-6970/tcp
-  sudo firewall-cmd --permanent --add-port=6960-6970/udp
-  sudo firewall-cmd --permanent --add-port=7960-7970/tcp
-  sudo firewall-cmd --permanent --add-port=7960-7970/udp
+  sudo ufw allow 5960:5970/tcp
+  sudo ufw allow 5960:5970/udp
+  sudo ufw allow 6960:6970/tcp
+  sudo ufw allow 6960:6970/udp
+  sudo ufw allow 7960:7970/tcp
+  sudo ufw allow 7960:7970/udp
   # Allow mDNS (needed for auto-discovery)
-  sudo firewall-cmd --permanent --add-port=5353/udp
+  sudo ufw allow 5353/udp
   # Optional: Allow PTP time sync
-  sudo firewall-cmd --permanent --add-port=319/udp
-  sudo firewall-cmd --permanent --add-port=320/udp
-  # Reload
-  sudo firewall-cmd --reload
+  sudo ufw allow 319/udp
+  sudo ufw allow 320/udp
 }
 
 function install-xnview-classic {
@@ -151,7 +139,7 @@ function install-xnview-classic {
   ICON_PATH="${DESTINATION_DIR}/xnview.ico"
   wrestool --extract --type=14 "${EXE_PATH}" > "${ICON_PATH}"
   WINEPREFIX="$HOME/.wine-xnview"
-  create-menu-entry XnView "flatpak run --env=\"WINEPREFIX=${WINEPREFIX}\" ${WINE_FLATPAK} ${EXE_PATH}" "${ICON_PATH}"
+  create-menu-entry XnView "WINEPREFIX=${WINEPREFIX} wine ${EXE_PATH}" "${ICON_PATH}"
   XNVIEW_CONFIG_DIR="$WINEPREFIX/drive_c/users/${USER}/AppData/Roaming/XnView"
   mkdir --parents $XNVIEW_CONFIG_DIR
   cp xnview.ini $XNVIEW_CONFIG_DIR/xnview.ini
@@ -184,7 +172,7 @@ function install-opensong {
   clone-git-repo "${SONGS_DIR}" spevokol Ine/Spevokol
   mkdir --parents "${SONGS_DIR}/Ine/Rozne"
   clone-git-repo "${DESTINATION_DIR}" opensong-bibles OpenSong\ Scripture
-  create-menu-entry OpenSong "flatpak run --env=\"WINEPREFIX=$HOME/.wine-opensong\" ${WINE_FLATPAK} ${DESTINATION_DIR}/OpenSong.exe" "${DESTINATION_DIR}/OpenSong2.ico"
+  create-menu-entry OpenSong "WINEPREFIX=$HOME/.wine-opensong wine ${DESTINATION_DIR}/OpenSong.exe" "${DESTINATION_DIR}/OpenSong2.ico"
   rm --dir OpenSong-portable
   rm ${PACKAGE_FILE}
 }
@@ -212,9 +200,23 @@ function install-fonts {
 }
 
 function install-firefox {
-  # Firefox with Video Download Helper
+  # Uninstall snap version and install apt version, source: https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
+  sudo snap remove firefox
+  wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+  echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+  echo '
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+
+Package: firefox*
+Pin: release o=Ubuntu
+Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla
+  sudo apt update && sudo apt remove -y firefox
+  sudo apt install firefox firefox-l10n-sk
+  # Video Download Helper
   firefox --headless --createprofile default
-  PROFILE_DIR=$(find ~/.mozilla/firefox/ -iname *.default)
+  PROFILE_DIR=$(find ~/.config/mozilla/firefox/ -iname *.default)
   EXTENSIONS_DIR=$PROFILE_DIR/extensions
   mkdir --parents $EXTENSIONS_DIR
   curl --show-error --location --output $EXTENSIONS_DIR/{b9db16a4-6edc-47ec-a1f4-b86292ed211d}.xpi https://addons.mozilla.org/firefox/downloads/file/4502183/video_downloadhelper-9.5.0.2.xpi
@@ -224,7 +226,7 @@ function install-firefox {
 
 function install-optional-software {
   # General
-  sudo zypper install -y mc htop krename zip arj unrar keepassxc audacity arandr dcraw exiftool
+  sudo apt install -y mc htop krename zip arj unrar keepassxc audacity arandr dcraw exiftool
   # XnViewMP via flatpak - with full filesystem access
   sudo flatpak install -y flathub com.xnview.XnViewMP
   sudo flatpak override com.xnview.XnViewMP --filesystem=host
@@ -238,7 +240,7 @@ function configure-software {
 }
 
 function remove-icon-from-panel {
-  qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
+  qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
   var panels = panels();
   for (i = 0; i < panels.length; ++i) {
     var widgets = panels[i].widgets();
@@ -263,12 +265,14 @@ function sed-appletsrc {
 }
 
 function configure-kde-plasma {
+  rm -d ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
+
   # Requires relogin, since:
   # - reloading config via qdbus no longer supported since Plasma 5.27
   # - reloading Plasma itself is not sufficient for some reason
 
   # Set desktop background to black color
-  qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript '
+  qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript '
     var allDesktops = desktops();
     for (i=0; i<allDesktops.length; i++) {
         d = allDesktops[i];
@@ -282,7 +286,7 @@ function configure-kde-plasma {
   kwriteconfig5 --file kwinrc --group Desktops --key Number 1
   kwriteconfig5 --file kwinrc --group Desktops --key Rows 1
   kwriteconfig5 --file kwinrc --group Desktops --key Id_2 --delete
-  qdbus6 org.kde.KWin /KWin reconfigure
+  qdbus org.kde.KWin /KWin reconfigure
   remove-icon-from-panel org.kde.plasma.pager
 
   # Task manager
@@ -292,10 +296,10 @@ function configure-kde-plasma {
   sed-appletsrc 'org\.kde\.plasma\.icontasks' '\[Containments\]\[2\]\[Applets\]\[5\]\[Configuration\]\[General\]\nlaunchers=\ngroupingStrategy=0\nonlyGroupWhenFull=false\nhighlightWindows=false'
 
   # Display seconds in digital clock
-  sed-appletsrc 'org\.kde\.plasma\.digitalclock' '\[Containments\]\[2\]\[Applets\]\[19\]\[Configuration\]\[Appearance\]\nshowSeconds=Always'
+    sed-appletsrc 'org\.kde\.plasma\.digitalclock' '\[Containments\]\[2\]\[Applets\]\[19\]\[Configuration\]\[Appearance\]\nshowSeconds=true'
 
   # Display flag in keyboard layout
-  sed-appletsrc 'org\.kde\.plasma\.keyboardlayout' '\[Containments\]\[2\]\[Applets\]\[7\]\[Applets\]\[8\]\[Configuration\]\[General\]\ndisplayStyle=Flag'
+  sed-appletsrc 'org\.kde\.plasma\.keyboardlayout' '\[Containments\]\[8\]\[Applets\]\[18\]\[Configuration\]\[General\]\ndisplayStyle=Flag'
 
   # Keyboard
   kwriteconfig5 --file kxkbrc --group Layout --key LayoutList "us,sk"
@@ -307,14 +311,14 @@ function configure-kde-plasma {
   kwriteconfig5 --file plasma-localerc --group Formats --key LANG sk_SK.UTF-8
 
   # Disabling Power Management
-  kwriteconfig5 --file powerdevilrc --group AC --group DPMSControl --key idleTime --delete
-  kwriteconfig5 --file powerdevilrc --group AC --group DPMSControl --key lockBeforeTurnOff --delete
-  kwriteconfig5 --file powerdevilrc --group AC --group DimDisplay --key idleTime --delete
-  kwriteconfig5 --file powerdevilrc --group AC --group SuspendSession --key idleTime --delete
+  kwriteconfig5 --file powermanagementprofilesrc --group AC --group DPMSControl --key idleTime --delete
+  kwriteconfig5 --file powermanagementprofilesrc --group AC --group DPMSControl --key lockBeforeTurnOff --delete
+  kwriteconfig5 --file powermanagementprofilesrc --group AC --group DimDisplay --key idleTime --delete
+  kwriteconfig5 --file powermanagementprofilesrc --group AC --group SuspendSession --key idleTime --delete
   # Note - reloading config via qdbus no longer supported since Plasma 5.27
 
   # Disabling screen locking
-  kwriteconfig5 --file kscreenlockerrc --group Daemon --key Timeout 0
+  kwriteconfig5 --file kscreenlockerrc --group Daemon --key Autolock false
 
   # Turn on Num Lock on login
   kwriteconfig5 --file kcminputrc --group Keyboard --key NumLock 0
@@ -322,18 +326,11 @@ function configure-kde-plasma {
 
 function os-configuration {
   # Important software installation
-  ## Repo for crudini
-  sudo zypper addrepo https://download.opensuse.org/repositories/Cloud:OpenStack:Factory/${OS_VERSION}/Cloud:OpenStack:Factory.repo
-  sudo zypper --gpg-auto-import-keys refresh
-  sudo zypper install -y krusader wine 7zip unzip qt6-tools-qdbus crudini icoutils flatpak
+  sudo apt install -y linux-generic
+  sudo apt remove -y linux-generic-hwe-${OS_VERSION} linux-hwe-* linux-modules-6.1*
+  sudo apt autoremove -y
+  sudo apt install -y krusader wine 7zip unzip qdbus-qt6 crudini icoutils flatpak synaptic curl
   sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-  sudo flatpak install -y flathub ${WINE_FLATPAK}/x86_64/stable-25.08
-
-  # Reverting to and locking the last working version containing Wine 10.0, later version contain Wine 11.0 which is broken (both OpenSong and XnView fail to start)
-  sudo flatpak update -y --commit=eb95e7af9b9c8f3bfaf26883952e1a4a866b21c3463418ac664e223cda898621 ${WINE_FLATPAK}/x86_64/stable-25.08
-  sudo flatpak mask ${WINE_FLATPAK}
-
-  sudo flatpak override ${WINE_FLATPAK} --filesystem=host
   sudo flatpak config --set languages "en;sk"
   sudo flatpak update -y
 
@@ -341,28 +338,21 @@ function os-configuration {
   ## Set GRUB timeout to 0
   sudo sed --in-place 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
   grep -q '^GRUB_TIMEOUT=' /etc/default/grub || echo 'GRUB_TIMEOUT=0' | sudo tee --append /etc/default/grub
-  ## Enable running of 32 bit apps such as OpenSong or XnView
-  sudo /usr/sbin/update-bootloader --add-option "ia32_emulation=1"
-  ## Write GRUB configuration
-  if [ -d /sys/firmware/efi ]; then
-    sudo grub2-mkconfig --output=/boot/efi/EFI/opensuse/grub.cfg
-  else
-    sudo grub2-mkconfig --output=/boot/grub2/grub.cfg
-  fi
-
-  # Disable delta RPM downloads
-  sudo crudini --set /etc/zypp/zypp.conf download.use_deltarpm false
+  sudo update-grub
 
   # Remove Discover to prevent unintentional installation of updates
-  sudo zypper remove -y discover6
+  sudo apt remove -y plasma-discover
+
+  # Firewall
+  sudo ufw allow ssh
+  sudo ufw enable
 }
 
 
-OS_VERSION=16.0
-WINE_FLATPAK=org.winehq.Wine
+OS_VERSION=24.04
 PROGRAMS_DIR=~/programs
 mkdir --parents $PROGRAMS_DIR
-echo "Sudo is required for installation of some packages via zypper"
+echo "Sudo is required for installation of some packages via system package manager"
 
 # Global - OS configuration, software installed for all users
 os-configuration
