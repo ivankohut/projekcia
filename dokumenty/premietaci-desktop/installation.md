@@ -18,9 +18,9 @@ Nastavenia v BIOSe (dostať sa doň pomocou tlačidiel F2 alebo Del):
 
 ## Operačný systém
 
-- Linux, konkrétne openSUSE Leap 16.0, [stiahnuť ISO obraz](https://download.opensuse.org/distribution/leap/16.0/offline/Leap-16.0-offline-installer-x86_64.install.iso)
+- Linux, konkrétne Kubuntu 24.04, [stiahnuť ISO obraz](https://cdimage.ubuntu.com/kubuntu/releases/24.04.3/release/kubuntu-24.04.4-desktop-amd64.iso)
 - napáliť obraz na DVD, resp. nahrať na USB, resp. vložiť do virtuálnej CD mechaniky vo VirtualBox-e
-- spustiť inštaláciu openSUSE, použiť nasledovné voľby pre inštaláciu vo VirtualBox-e
+- naštartovať počítač z ISO obrazu, spustiť inštaláciu, použiť nasledovné voľby pre inštaláciu vo VirtualBox-e
   (na fyzickom počítači treba venovať patričnú pozornosť správnemu nastaveniu _Storage_, teda kam sa openSUSE nainštaluje) :
   - Select a product - _Leap 16.0_
   - v ľavom menu Localization - Language / Change: _Slovak_, Time zone / Change: _Europe-Bratislava_
@@ -77,8 +77,8 @@ Presunúť spúšťacie ikony programov z oblasti napravo od "systray" do oblast
 OBS aj s podporou NDI sa síce nainštaluje v predošlom kroku, ale jeho konfiguráciu treba spraviť manuálne (konfigurácia je uložená v JSON databáze, ktorú nie je
 možné editovať priamo cez nejaký skript):
 
-- add Source of type _Display Capture (XSHM)_, select the display you want to send to NDI (for streaming purposes)
-- add Filter (right-click on the source, click Filter, then click +) of type _Dedicated NDI (R) output_, set _NDI (R) Name_ to `Projekcia`
+- pridať _zdroj_ typu _Display Capture (XSHM)_, vybrať obrazovku, ktorá sa bude posielať do NDI (za účelom streamovania)
+- do vytvoreného zdroja pridať _filter_ (pravý klik na zdroj, klik na _Filters_, potom klik na _+_) typu _Dedicated NDI (R) output_, nastaviť _NDI (R) Name_ na `Projekcia`
 
 ### Rozšírenia pre Firefox
 
@@ -106,7 +106,7 @@ sudo nmcli connection modify "$NM_CONNECTION_NAME" \
   ipv4.addresses 192.168.20.80/24 \
   ipv4.gateway 192.168.20.1 \
   ipv4.dns "1.1.1.1,1.0.0.1" \
-  ipv4.method manual
+  ipv4.method manual \
   802-3-ethernet.wake-on-lan magic
 sudo nmcli connection up "$NM_CONNECTION_NAME"
 
