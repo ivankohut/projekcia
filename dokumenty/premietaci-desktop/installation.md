@@ -95,7 +95,7 @@ Statická IP adresa je užitočná nato
 * aby v mobile, ktorý zobrazuje obraz premietaný na plátne, nebolo treba v _Chrome_ meniť IP adresu pri pripájaní sa na _Deskreen_ (aby stačilo zmeniť len 6-ciferný kód na konci internetovej adresy),
 * aby sa dalo na počítač pripojiť vzdialene cez VPN.
 
-Vzdialený prístup - potrebuje Wake on LAN (vzdalené zapnutie) a SSH server (vzdialené prihlásenie cez terminál).
+Vzdialený prístup - potrebuje Wake on LAN (vzdalené zapnutie), SSH server (vzdialené prihlásenie cez terminál) a VNC server (vzdialené prihlásenie cez VNC).
 
 V termináli (program _Konsole_) spustiť:
 
@@ -113,4 +113,16 @@ sudo nmcli connection up "$NM_CONNECTION_NAME"
 # SSH server
 sudo apt install -y openssh-server
 sudo systemctl enable --now ssh
-``` 
+
+# VNC server
+sudo apt install -y tigervnc-scraping-server tigervnc-common
+sudo ufw allow 5900/tcp
+vncpasswd
+cat > ~/.config/autostart/x0vncserver.desktop << EOF
+[Desktop Entry]
+Type=Application
+Name=TigerVNC x0vncserver
+Exec=sh -c "sleep 3 && x0vncserver -display :0 -rfbauth ~/.vnc/passwd -localhost=no"
+X-KDE-autostart-after=panel
+EOF
+```
