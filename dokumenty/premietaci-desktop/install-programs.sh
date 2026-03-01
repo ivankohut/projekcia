@@ -195,6 +195,11 @@ function install-fonts {
   curl --show-error --location --output $FONT_FILE "https://www.dropbox.com/scl/fi/9yap9hr7qn1g858950ko3/century-gothic-cufonfonts.zip?rlkey=lyxjwu6dhewh2esw4kgpqz0er&st=1jzjzzlg&dl=0"
   unzip $FONT_FILE -d $FONTS_DIR
   rm $FONT_FILE
+  # Aptos (default font in Microsoft 365 suite since July 2023, it has replaced Calibri)
+  FONT_FILE=aptos-fonts.zip
+  curl --show-error --location --output $FONT_FILE "https://www.dropbox.com/scl/fi/mg341c4e3qev7kgsj2jed/Microsoft-Aptos-Fonts.zip?rlkey=kiz5hqz4as0tcrw5v7ng3fdsq&st=q5d8qr91&dl=0"
+  unzip $FONT_FILE -d $FONTS_DIR
+  rm $FONT_FILE
 
   fc-cache --force --verbose
 }
