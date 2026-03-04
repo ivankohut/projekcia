@@ -219,14 +219,6 @@ Pin: release o=Ubuntu
 Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla
   sudo apt update && sudo apt remove -y firefox
   sudo apt install firefox firefox-l10n-sk
-  # Video Download Helper
-  firefox --headless --createprofile default
-  PROFILE_DIR=$(find ~/.config/mozilla/firefox/ -iname *.default)
-  EXTENSIONS_DIR=$PROFILE_DIR/extensions
-  mkdir --parents $EXTENSIONS_DIR
-  curl --show-error --location --output $EXTENSIONS_DIR/{b9db16a4-6edc-47ec-a1f4-b86292ed211d}.xpi https://addons.mozilla.org/firefox/downloads/file/4502183/video_downloadhelper-9.5.0.2.xpi
-  # Video Download Helper CoApp
-  curl --silent --show-error --location --fail https://github.com/aclap-dev/vdhcoapp/releases/latest/download/install.sh | bash
 }
 
 function install-optional-software {

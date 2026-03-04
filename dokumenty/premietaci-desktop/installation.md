@@ -85,8 +85,7 @@ možné editovať priamo cez nejaký skript):
 Vo Firefoxe kliknúť na puzzle ikonku vpravo hore, potom _Spravovať rozšírenia_:
 
 - uBlock Origin - blokovač reklám
-- Video DownloadHelper - sťahovanie videí napr. z YouTube. Jeho _co-app_ ("companion application") je už nainštalovaná,  
-  ale samotné rozšírenie treba nainštalovať ručne.
+- Video DownloadHelper - sťahovanie videí napr. z YouTube
 
 ## Premietací počítač na Palisádach - sieťové nastavenia
 
