@@ -41,8 +41,17 @@ EOF
 }
 
 function install-video-software {
-  # VLC and other "restricted" packages
-  sudo apt install -y ubuntu-restricted-extras vlc smplayer
+  # VLC
+  sudo apt install -y ubuntu-restricted-extras vlc
+  # Create config file
+  vlc --reset-config vlc://quit
+  # Turn off asking about privacy during start
+  sed -i 's/^#\?qt-privacy-ask=.*/qt-privacy-ask=0/' ~/.config/vlc/vlcrc
+  # Turn on "Play and Stop"
+  sed -i 's/^#\?play-and-stop=.*/play-and-stop=1/' ~/.config/vlc/vlcrc
+
+  # SMPlayer
+  sudo apt install -y smplayer
   # DVD playback
   sudo apt install -y libdvd-pkg
   sudo dpkg-reconfigure libdvd-pkg
