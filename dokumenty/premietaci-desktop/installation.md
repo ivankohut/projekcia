@@ -2,7 +2,7 @@
 
 ## Počítač
 
-Je potrebné rýchle internetové priprojenie.
+Je potrebné rýchle internetové pripojenie.
 
 ### Premietací počítač na Palisádach
 
@@ -15,57 +15,64 @@ Nastavenia v BIOSe (dostať sa doň pomocou tlačidiel F2 alebo Del):
 ### Iný počítač, skutočný alebo virtuálny (VirtualBox)
 
 - disk veľkosti aspoň 20 GB
+- RAM veľkosti aspoň 4 GB
 
 ## Operačný systém
 
-- Linux, konkrétne Kubuntu 24.04, [stiahnuť ISO obraz](https://cdimage.ubuntu.com/kubuntu/releases/24.04.3/release/kubuntu-24.04.4-desktop-amd64.iso)
+- Linux, konkrétne Kubuntu 24.04, [stiahnuť ISO obraz](https://cdimage.ubuntu.com/kubuntu/releases/24.04.4/release/kubuntu-24.04.4-desktop-amd64.iso)
 - napáliť obraz na DVD, resp. nahrať na USB, resp. vložiť do virtuálnej CD mechaniky vo VirtualBox-e
 - naštartovať počítač z ISO obrazu, spustiť inštaláciu, použiť nasledovné voľby pre inštaláciu vo VirtualBox-e
-  (na fyzickom počítači treba venovať patričnú pozornosť správnemu nastaveniu _Storage_, teda kam sa openSUSE nainštaluje) :
-  - Select a product - _Leap 16.0_
-  - v ľavom menu Localization - Language / Change: _Slovak_, Time zone / Change: _Europe-Bratislava_
-  - v ľavom menu Storage - New partitions will be created for...
-    - zmeniť File system pre partíciu "/" na _Ext4_
-    - odstrániť _swap_ 
-  - v ľavom menu Software - Change selection
-    - zapnúť _KDE Applications and Plasma Desktop_  
-    - vypnúť _SELinux Support_
-  - v ľavom menu Authentication
-    - First user / Define a user now
-      - Full name: `Projekcia`
-      - Username: `projekcia`
-      - Password a Password confirmation: je to na vás, napr. `projekcia`
-  - vpravo hore kliknúť na _Install_ a potvrdiť pomocou _Continue_
-- voliteľné pre fyzický počítač: nakonfigurovať partície v `/etc/fstab`
+  (na fyzickom počítači treba byť opatrný pri nastavovaní _Storage_, teda kam sa systém nainštaluje):
+  - v boot menu ISO obrazu: _Try or Install Kubuntu_
+  - _Install Kubuntu_
+  - v inštalátore Kubuntu, krok:
+    - _Uvítanie_ vybrať jazyk: _slovenčina_
+    - _Umiestnenie_ - len klik _Ďalej_ (potvrdiť oblasť _Europe_ a zónu _Bratislava_)
+    - _Klávesnica_ - len klik _Ďalej_ (potvrdiť _Slovak_ / _Default_)
+    - _Customize_ - vybrať _Normal installation_ a zaškrtnúť _Download and install updates following installation_
+    - _Oddiely_ - vybrať _Vymazanie disku_ a _Odkladací priestor v súbore_ zmeniť na _No swap_
+    - _Používatelia_ 
+      - Celé meno: `Projekcia`
+      - Prihlásenie: `projekcia`
+      - Názov počítača: `projekcia`
+      - Heslo a zopakovanie hesla: je to na vás, napr. `projekcia`
+      - zaškrtnúť _Prihlásiť automaticky bez pýtania hesla._
+    - _Súhrn_ - len klik _Inštalovať_ a potom _Install Now_
+    - _Dokončenie_ - len klik _Dokončiť_
+- voliteľné pre fyzický počítač: nakonfigurovať oddiely v `/etc/fstab`
   - _options_ pre systémy súborov (ext4 - `discard`, `nodelassoc`, ...)
-  - _tempfs_ for temp. directories
-- nainštalovať aktualizácie - v termináli (program _Konsole_) spustiť (bude vyžadovať zadanie hesla):
+  - _tempfs_ pre priečinky dočasných súborov
+- spustiť nainštalovaný počítač (automatické prihlásenie ako používateľ _Projekcia_)
+- v nainštalovanom systéme pomocou webového prehliadača otvoriť tento dokument (https://github.com/ivankohut/projekcia/blob/main/dokumenty/premietaci-desktop/installation.md),
+  aby ste z neho mohli kopírovať príkazy do terminálu, a pokračujte ďalším krokom
+- otvoriť terminál (teda spustiť program _Konsole_) a spustiť v ňom tieto príkazy (bude vyžadovať zadanie hesla):
+
   ```shell
-  sudo apt update
-  sudo apt upgrade -y
-  sudo reboot
+  git clone https://github.com/ivankohut/projekcia.git && cd projekcia/dokumenty/premietaci-desktop && ./install-stable-kernel.sh
   ```
-- pre virtuálny počítač vo VirtualBox-e treba nainštalovať _Guest Additions_
-  - vo VirtualBox menu bežiaceho virtuálneho počítača spustiť: _Devices_ / _Insert Guest Additions CD Image..._
-  - v termináli (program _Konsole_) spustiť (bude vyžadovať zadanie hesla) 
-    ```shell
-    sudo zypper install -y kernel-devel \
-      && sudo mkdir -p /media/vbox-additions \
-      && sudo mount /dev/sr0 /media/vbox-additions \
-      && sudo /media/vbox-additions/VBoxLinuxAdditions.run --accept \
-      && sudo umount /media/vbox-additions
-    ```
-  - vo VirtualBox menu bežiaceho virtuálneho počítača spustiť: _Devices_ / _Shared Clipboard / Bidirectional_
+
+- reštartovať počítač
+
+## VirtualBox Guest Additions (ak je počítač virtuálny)
+
+- vo VirtualBox menu bežiaceho virtuálneho počítača spustiť: _Devices_ / _Insert Guest Additions CD Image..._
+- v termináli (program _Konsole_) spustiť (bude vyžadovať zadanie hesla):
+
+  ```shell
+  sudo apt install -y build-essential dkms \
+    && sudo mkdir -p /media/vbox-additions \
+    && sudo mount /dev/sr0 /media/vbox-additions \
+    && sudo /media/vbox-additions/VBoxLinuxAdditions.run --accept \
+    && sudo umount /media/vbox-additions
+  ```
+- vo VirtualBox menu bežiaceho virtuálneho počítača spustiť: _Devices_ / _Shared Clipboard / Bidirectional_
 
 ## Programy a pracovná plocha
 
-Spustiť nainštalovaný počítač (automatické prihlásenie ako používateľ _Projekcia_),
-otvoriť terminál (teda spustiť program _Konsole_) a spustiť v ňom tieto príkazy (bude vyžadovať zadanie hesla):
+Otvoriť terminál (teda spustiť program _Konsole_) a spustiť v ňom tieto príkazy (bude vyžadovať zadanie hesla):
 
 ```shell
-git clone https://github.com/ivankohut/projekcia.git \
-  && cd projekcia/dokumenty/premietaci-desktop \
-  && ./install-programs.sh
+cd projekcia/dokumenty/premietaci-desktop && ./install-programs.sh
 ```
 
 Následne je potrebné sa odhlásiť a zase prihlásiť.

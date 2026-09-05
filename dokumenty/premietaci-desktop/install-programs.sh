@@ -2,7 +2,7 @@
 
 set -ex
 
-# Installation of programs after basic openSUSE Leap installation to setup the system and the current user for "projekcia"
+# Installation of necessary programs and current user desktop setup
 
 function add-menu-entry-to-kde-panel {
   # Note. Panel icons (*.desktop files) are stored in ~/.local/share/plasma_icons
@@ -332,9 +332,6 @@ function configure-kde-plasma {
 
 function os-configuration {
   # Important software installation
-  sudo apt install -y linux-generic
-  sudo apt remove -y linux-generic-hwe-${OS_VERSION} linux-hwe-* linux-modules-6.1*
-  sudo apt autoremove -y
   sudo apt install -y krusader wine 7zip unzip qdbus-qt6 crudini icoutils flatpak synaptic curl
   sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
   sudo flatpak config --set languages "en;sk"
@@ -355,7 +352,6 @@ function os-configuration {
 }
 
 
-OS_VERSION=24.04
 PROGRAMS_DIR=~/programs
 mkdir --parents $PROGRAMS_DIR
 echo "Sudo is required for installation of some packages via system package manager"
