@@ -2,7 +2,7 @@
 
 set -ex
 
-# Installation of programs after basic openSUSE Leap installation to setup the system and the current user for "projekcia"
+# Installation of necessary programs and current user desktop setup
 
 function add-menu-entry-to-kde-panel {
   # Note. Panel icons (*.desktop files) are stored in ~/.local/share/plasma_icons
@@ -42,7 +42,9 @@ EOF
 
 function install-video-software {
   # VLC
-  sudo apt install -y ubuntu-restricted-extras vlc
+  echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ubuntu-restricted-extras vlc
+
   # Create config file
   vlc --reset-config vlc://quit
   # Turn off asking about privacy during start
@@ -55,6 +57,11 @@ function install-video-software {
   # DVD playback
   sudo apt install -y libdvd-pkg
   sudo dpkg-reconfigure libdvd-pkg
+
+  echo "libdvd-pkg libdvd-pkg/first-install select true" | sudo debconf-set-selections
+  echo "libdvd-pkg libdvd-pkg/process_automatic boolean true" | sudo debconf-set-selections
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libdvd-pkg
+  sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure libdvd-pkg
 }
 
 function install-deskreen {
@@ -271,7 +278,8 @@ function sed-appletsrc {
 }
 
 function configure-kde-plasma {
-  rm -d ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
+  source ~/.config/user-dirs.dirs
+  rm --dir ${XDG_MUSIC_DIR} ${XDG_PICTURES_DIR} ${XDG_PUBLICSHARE_DIR} ${XDG_TEMPLATES_DIR} ${XDG_VIDEOS_DIR}
 
   # Requires relogin, since:
   # - reloading config via qdbus no longer supported since Plasma 5.27
@@ -302,10 +310,10 @@ function configure-kde-plasma {
   sed-appletsrc 'org\.kde\.plasma\.icontasks' '\[Containments\]\[2\]\[Applets\]\[5\]\[Configuration\]\[General\]\nlaunchers=\ngroupingStrategy=0\nonlyGroupWhenFull=false\nhighlightWindows=false'
 
   # Display seconds in digital clock
-    sed-appletsrc 'org\.kde\.plasma\.digitalclock' '\[Containments\]\[2\]\[Applets\]\[19\]\[Configuration\]\[Appearance\]\nshowSeconds=true'
+  sed-appletsrc 'org\.kde\.plasma\.digitalclock' '\[Containments\]\[2\]\[Applets\]\[20\]\[Configuration\]\[Appearance\]\nshowSeconds=true'
 
   # Display flag in keyboard layout
-  sed-appletsrc 'org\.kde\.plasma\.keyboardlayout' '\[Containments\]\[8\]\[Applets\]\[18\]\[Configuration\]\[General\]\ndisplayStyle=Flag'
+  sed-appletsrc 'org\.kde\.plasma\.keyboardlayout' '\[Containments\]\[8\]\[Applets\]\[9\]\[Configuration\]\[General\]\ndisplayStyle=Flag'
 
   # Keyboard
   kwriteconfig5 --file kxkbrc --group Layout --key LayoutList "us,sk"
@@ -332,9 +340,6 @@ function configure-kde-plasma {
 
 function os-configuration {
   # Important software installation
-  sudo apt install -y linux-generic
-  sudo apt remove -y linux-generic-hwe-${OS_VERSION} linux-hwe-* linux-modules-6.1*
-  sudo apt autoremove -y
   sudo apt install -y krusader wine 7zip unzip qdbus-qt6 crudini icoutils flatpak synaptic curl
   sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
   sudo flatpak config --set languages "en;sk"
@@ -355,7 +360,6 @@ function os-configuration {
 }
 
 
-OS_VERSION=24.04
 PROGRAMS_DIR=~/programs
 mkdir --parents $PROGRAMS_DIR
 echo "Sudo is required for installation of some packages via system package manager"
