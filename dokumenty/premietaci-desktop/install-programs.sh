@@ -351,8 +351,9 @@ function os-configuration {
   grep -q '^GRUB_TIMEOUT=' /etc/default/grub || echo 'GRUB_TIMEOUT=0' | sudo tee --append /etc/default/grub
   sudo update-grub
 
-  # Preventing unintentional installation of updates
+  # Preventing automatic/unintentional installation of updates/distribution upgrades
   sudo apt remove -y plasma-discover unattended-upgrades
+  sudo sed -i 's/^Prompt=.*/Prompt=never/' /etc/update-manager/release-upgrades
 
   # Firewall
   sudo ufw allow ssh
